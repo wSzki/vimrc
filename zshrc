@@ -40,6 +40,7 @@ if [ -d ~/.zplug ]; then
 	zplug "subnixr/minimal"
 	zplug "chisui/zsh-nix-shell"
 	zplug "spwhitt/nix-zsh-completions"
+	zplug "amaya382/zsh-fzf-widgets"
 	#zplug "laggardkernel/zsh-thefuck", defer:2
 	if ! zplug check; then	zplug install && exec zsh; fi
 	zplug load #--verbose
@@ -78,7 +79,9 @@ bindkey    "^[3;5~"         delete-char
 bindkey    "^F" 			fzf-file-widget
 bindkey    "^A" 			beginning-of-line
 bindkey    "^E" 			end-of-line
-#bindkey    "^K" 			fzf-cd-widget
+bindkey    "^g" 			fzf-cd-widget
+bindkey    "^k" 			fzf-kill-proc-by-list
+#bindkey    "^s" 			fzf-git-status
 # Autocompletes even if no whitespace
 # BREAKS FZF TAB
 #bindkey '^i' expand-or-complete-prefix # https://stackoverflow.com/questions/37772712/zsh-how-to-make-tab-completion-need-no-space-to-next-word-after-cursor
@@ -371,7 +374,10 @@ alias uxn="cd ~/.uxn"
 
 ### GIT
 alias gcl="git clone"
-alias gch="git checkout"
+alias glo="fzf-git-log"
+alias gst="fzf-git-status"
+alias gch="fzf-git-checkout"
+
 
 ### SSH
 if [ $TERM = "xterm-kitty" ] ; then alias ssh="kitty +kitten ssh" ; fi
@@ -662,6 +668,9 @@ alias touchpad_restart="xinput disable 11 && xinput enable 11"
 #   export EDITOR='mvim'
 # fi
 
+stty -ixon # disables ctrl+s
+
+
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 export CPATH=$CPATH:/home/wsz/cub/mlx
@@ -678,3 +687,7 @@ if type direnv > /dev/null; then eval "$(direnv hook zsh)"; fi
 export CPATH=:/home/wsz/containers/inc
 export CPATH=:/home/wsz/containers/inc/utils
 export CPATH=:/home/wsz
+
+
+
+

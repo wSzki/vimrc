@@ -336,6 +336,7 @@ alias Makefile_create="/bin/cat $MAKEFILE_PATH"
 alias Makefile_edit="vim $MAKEFILE_PATH"
 
 ### MISC
+alias man=men
 alias qq="tmux kill-session"
 alias vimspector='{"configurations": {"Launch": {"adapter": "vscode-cpptools","configuration": {"request": "launch","program": "./a.out","externalConsole": true}}}}'
 alias fxd="/bin/vim -c "FoxDotStart" -u ~/.dot/box/foxdot/foxdot.vimrc ~/.dot/box/foxdot/main.sc"

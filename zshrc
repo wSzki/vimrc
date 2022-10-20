@@ -21,7 +21,7 @@ if [ ! -d ~/.zplug ]; then
 fi
 
 # If not running interactively, do not do anything # Otherwise start tmux
-#[[ $- != *i* ]] && return ; [[ -z "$TMUX" ]] && exec tmux
+[[ $- != *i* ]] && return ; [[ -z "$TMUX" ]] && exec tmux
 
 export DOTFILES=$HOME/.dot
 export BOX=$DOTFILES/box

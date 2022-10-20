@@ -24,7 +24,6 @@ set               -g  window-active-style      'bg=#191d20'
 # ---------------------------------- BINDKEYS ----------------------------------
 # ==============================================================================
 
-# splits open in same working directory
 bind '"' split-window -c "#{pane_current_path}"
 bind '%' split-window -h -c "#{pane_current_path}"
 
@@ -98,6 +97,7 @@ set -ag status-right '#{cpu_temp_fg_color}TEMP:#{cpu_temp} '
 set-option -ag status-right "#[fg=grey,bg=default]#{network_bandwidth} "
 set -ag status-right "#[fg=#777777,bg=#1f2428]BAT:#{battery_percentage}"
 #set-option -ag status-right "#{network_bandwidth}"
+#set-option -ag status-right "#(~/.tmp/bi)"
 
 # ==============================================================================
 # ----------------------------------- TILING -----------------------------------
@@ -106,7 +106,8 @@ set -ag status-right "#[fg=#777777,bg=#1f2428]BAT:#{battery_percentage}"
 set -s escape-time      0
 set -g base-index       1
 set -g repeat-time      1000
-set -g @tilish-prefix   'M-space' # Modal mode alt+space
+#set -g @tilish-prefix   'M-space' # Modal mode alt+space
+#set -g @tilish-prefix   'M-' # Modal mode alt+space
 set -g @tilish-easymode 'on'
 set -g @tilish-default  'even-horizontal'
 set -g @tilish-dmenu    'on'
@@ -115,7 +116,7 @@ set -g @tilish-dmenu    'on'
 # ---------------------------------- PLUGINS -----------------------------------
 # ==============================================================================
 
-set -g @continuum-restore 'on'
+#set -g @continuum-restore 'on'
 
 # Install `tpm` if needed.
 if "test ! -d ~/.tmux/plugins/tpm" \
@@ -123,9 +124,8 @@ if "test ! -d ~/.tmux/plugins/tpm" \
 
 set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'jaclu/tmux-menus'
-set -g @plugin 'jabirali/tmux-tilish'
+set -g @plugin 'wszki/tmux-tilish'
 set -g @plugin 'xamut/tmux-network-bandwidth'
-set -g @plugin 'b0o/tmux-autoreload'
 set -g @plugin 'tmux-plugins/tmux-cpu'
 set -g @plugin 'sainnhe/tmux-fzf'
 set -g @plugin 'ofirgall/tmux-window-name'
@@ -136,7 +136,8 @@ set -g @plugin 'tmux-plugins/tmux-battery'
 set -g @plugin 'xamut/tmux-network-bandwidth'
 set -g @plugin 'richin13/tmux-plugin-playerctl'
 
-set -g @plugin 'tmux-plugins/tmux-continuum'
+#set -g @plugin 'tmux-plugins/tmux-continuum'
+#set -g @plugin 'b0o/tmux-autoreload'
 
 #set -g @plugin 'feqzz/tmux-mpv-info'
 #set -g @plugin 'tmux-plugins/tmux-prefix-highlight'
@@ -148,7 +149,7 @@ set -g @plugin 'tmux-plugins/tmux-continuum'
 #set -g @plugin 'Determinant/tmux-colortag'
 
 #set -g @resurrect-strategy-nvim         'session'
-#set -g @resurrect-capture-pane-contents 'on'
+set -g @resurrect-capture-pane-contents 'on'
 #set -g @resurect-processes              'nvim zsh'
 #set -g @resurrect-strategy-nvim         'session'
 #set -g @resurrect-processes             '"vim->vim +SLoad"'

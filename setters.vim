@@ -71,10 +71,10 @@ set cursorline
 
 " Search
 """""""""
-"set incsearch
-"set hlsearch
-"set infercase
-"set smartcase
+set incsearch
+set hlsearch
+set infercase
+set smartcase
 
 " Wildmenu
 """""""""""

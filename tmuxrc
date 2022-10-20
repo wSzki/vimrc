@@ -131,9 +131,8 @@ set -ag status-right '#[ fg=#fabd2f,bold, bg=#1f2428 ] %Y-%m-%d %H:%M '
 
 set -s escape-time      0
 set -g base-index       1
-set -g repeat-time      1000
-#set -g @tilish-prefix   'M-space' # Modal mode alt+space
-#set -g @tilish-prefix   'M-' # Modal mode alt+space
+set -g repeat-time      100
+set -g @tilish-prefix   'M-space' # Modal mode alt+space
 set -g @tilish-easymode 'on'
 set -g @tilish-default  'even-horizontal'
 set -g @tilish-dmenu    'on'

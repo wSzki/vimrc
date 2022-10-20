@@ -121,6 +121,7 @@ set -ag status-right '#{cpu_temp_fg_color}TEMP:#{cpu_temp} '
 #set -ag status-right "#[fg=red,bold, bg=#1f2428]#S "
 set-option -ag status-right "#[fg=grey,bg=default]#{network_bandwidth} "
 set -ag status-right "#[fg=#777777,bg=#1f2428]BAT:#{battery_percentage}"
+set -ag status-right '#[ fg=#fabd2f,bold, bg=#1f2428 ] %Y-%m-%d %H:%M '
 #set-option -ag status-right "#{network_bandwidth}"
 #set-option -ag status-right "#(~/.tmp/bi)"
 

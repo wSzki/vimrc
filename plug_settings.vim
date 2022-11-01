@@ -15,11 +15,13 @@
 " ------------------------- VIM WORKSPACE ("SESSION") --------------------------
 " ==============================================================================
 "
+nnoremap <leader>ss :SSave!<CR>
+nnoremap <leader>sd :SDelete!<CR>
 "
-nnoremap <leader>ss :ToggleWorkspace<CR>
-nnoremap <leader>sc :CloseHiddenBuffers<CR>
-"let g:workspace_autocreate = 1"
-let g:workspace_session_directory = $HOME . '/.vim/sessions/'
+"nnoremap <leader>ss :ToggleWorkspace<CR>
+"nnoremap <leader>sc :CloseHiddenBuffers<CR>
+""let g:workspace_autocreate = 1"
+"let g:workspace_session_directory = $HOME . '/.vim/sessions/'
 
 "let g:workspace_session_disable_on_args = 1
 

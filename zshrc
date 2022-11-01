@@ -21,7 +21,7 @@ if [ ! -d ~/.zplug ]; then
 fi
 
 # If not running interactively, do not do anything # Otherwise start tmux
-[[ $- != *i* ]] && return ; [[ -z "$TMUX" ]] && exec tmux
+#[[ $- != *i* ]] && return ; [[ -z "$TMUX" ]] && exec tmux
 
 export DOTFILES=$HOME/.dot
 export BOX=$DOTFILES/box
@@ -216,6 +216,26 @@ function tdv  { tmux kill-session -t tidal ; ~/.dot/tidal/tidal ~/.dot/tidal/mai
 function vcv  { export PIPEWIRE_LATENCY="2048/48000"; vcvrack }
 
 
+function vimspector {
+	echo 'DO NOT FORGET TO COMPILE WITH -g'
+	echo 'Done.'
+	echo '
+	{
+		"configurations": {
+			"Launch": {
+				"adapter": "vscode-cpptools",
+				"configuration": {
+				"request": "launch",
+				"program": "./a.out",
+				"externalConsole": true
+				}
+			}
+		}
+	}' > .vimspector.json
+}
+
+
+
 alias snippets="cd  ~/.config/coc/ultisnips/ && v"
 
 
@@ -338,7 +358,7 @@ alias Makefile_edit="vim $MAKEFILE_PATH"
 ### MISC
 alias man=men
 alias qq="tmux kill-session"
-alias vimspector='{"configurations": {"Launch": {"adapter": "vscode-cpptools","configuration": {"request": "launch","program": "./a.out","externalConsole": true}}}}'
+#alias vimspector='{"configurations": {"Launch": {"adapter": "vscode-cpptools","configuration": {"request": "launch","program": "./a.out","externalConsole": true}}}}'
 alias fxd="/bin/vim -c "FoxDotStart" -u ~/.dot/box/foxdot/foxdot.vimrc ~/.dot/box/foxdot/main.sc"
 alias frc="vim ~/.dot/box/foxdot/foxdot.vimrc"
 alias surge="gitap && npm run build && cd build && surge ./ amita.surge.sh"
@@ -674,9 +694,6 @@ stty -ixon # disables ctrl+s
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
-export CPATH=$CPATH:/home/wsz/cub/mlx
-export CPATH=$CPATH:/home/wsz/cub/inc
-export CPATH=$CPATH:/home/wsz/containers/inc
 
 [ -f "/home/wsz/.ghcup/env" ] && source "/home/wsz/.ghcup/env" # ghcup-env
 
@@ -685,10 +702,5 @@ export CPATH=$CPATH:/home/wsz/containers/inc
 #source /home/wsz/.config/broot/launcher/bash/br
 
 if type direnv > /dev/null; then eval "$(direnv hook zsh)"; fi
-export CPATH=:/home/wsz/containers/inc
-export CPATH=:/home/wsz/containers/inc/utils
-export CPATH=:/home/wsz
-
-
-
-
+export CPATH=$CPATH:/home/wsz/irc/includes
+export CPATH=$CPATH:/home/wsz/irc/includes/numericReplies

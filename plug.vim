@@ -39,7 +39,7 @@ call plug#begin('~/.vim/plugged')
 "Plug 'sickill/vim-pasta'" break visual multi
 Plug 'ggandor/leap.nvim'
 Plug 'dosimple/workspace.vim',{'on': 'WS' }
-Plug 'thaerkh/vim-workspace' " This is actually sessions, not workspaces
+"Plug 'thaerkh/vim-workspace' " This is actually sessions, not workspaces
 Plug 'voldikss/vim-floaterm'
 Plug 'folke/which-key.nvim'
 "Plug 'sunaku/tmux-navigate'

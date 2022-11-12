@@ -15,8 +15,6 @@ inoremap <F1> <nop>
 
 noremap <leader>= :Uncrustify<CR>
 
-nnoremap <C-y> :Vista<CR>
-nnoremap <C-t> :Buffers<CR>
 
 "################################################ "
 " ### MAPPINGS ####

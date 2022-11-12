@@ -13,6 +13,7 @@
 "################################################ "
 "### PLUG ###"
 "################################################ "
+ autocmd TextYankPost * silent! lua vim.highlight.on_yank {higroup=(vim.fn['hlexists']('HighlightedyankRegion') > 0 and 'HighlightedyankRegion' or 'IncSearch'), timeout=500}
 
 " Auto install
 """""""""""""""
@@ -82,28 +83,47 @@ Plug 'lifepillar/vim-gruvbox8'
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'mhinz/vim-startify'
 
-if executable('node')
-	Plug 'neoclide/coc.nvim', { 'branch' : 'release',
-				\ 'do' : 'CocInstall
-				\ coc-explorer
-				\ coc-diagnostic
-				\ coc-explorer
-				\ coc-clangd
-				\ coc-cmake
-				\ coc-fzf-preview
-				\ coc-sh
-				\ coc-snippets
-				\ coc-emmet
-				\ coc-css
-				\ coc-html
-				\ coc-html-css-support
-				\ coc-svg
-				\ coc-eslint
-				\ coc-tsserver
-				\ coc-json
-				\ coc-docker
-				\ '} " Completion
-endif
+"if executable('node')
+	"Plug 'neoclide/coc.nvim', { 'branch' : 'release',
+				"\ 'do' : 'CocInstall
+				"\ coc-explorer
+				"\ coc-diagnostic
+				"\ coc-explorer
+				"\ coc-clangd
+				"\ coc-cmake
+				"\ coc-fzf-preview
+				"\ coc-sh
+				"\ coc-snippets
+				"\ coc-emmet
+				"\ coc-css
+				"\ coc-html
+				"\ coc-html-css-support
+				"\ coc-svg
+				"\ coc-eslint
+				"\ coc-tsserver
+				"\ coc-json
+				"\ coc-docker
+				"\ '} " Completion
+"endif
+
+" LSP Support
+Plug 'neovim/nvim-lspconfig'
+Plug 'williamboman/mason.nvim'
+Plug 'williamboman/mason-lspconfig.nvim'
+
+" Autocompletion
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'saadparwaiz1/cmp_luasnip'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-nvim-lua'
+
+"  Snippets
+Plug 'L3MON4D3/LuaSnip'
+Plug 'rafamadriz/friendly-snippets'
+
+Plug 'VonHeikemen/lsp-zero.nvim'
 
 " CORE
 """"""
@@ -182,9 +202,13 @@ Plug 'axlebedev/footprints',             {'on' : 'DISABLED'}  " highlight last c
 Plug 'nvim-neo-tree/neo-tree.nvim',      {'on' : ['DISABLED', 'NeoTreeFocusToggle', 'NeoTreeFloatToggle']}
 Plug 'mileszs/ack.vim',                  {'on'     : 'Ack'               } " ACK
 " Plug 'liuchengxu/vim-which-key',        { 'on': ['WhichKey', 'WhichKey!'] }
-
 call plug#end()
+lua <<EOF
+local lsp = require('lsp-zero')
 
+lsp.preset('recommended')
+lsp.setup()
+EOF
 "call glaive#Install()
 "Glaive codefmt plugin[mappings]
 "Glaive codefmt google_java_executable="java -jar /path/to/google-java-format-VERSION-all-deps.jar"

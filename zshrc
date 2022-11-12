@@ -222,16 +222,16 @@ function vimspector {
 	echo '
 	{
 		"configurations": {
-			"Launch": {
-				"adapter": "vscode-cpptools",
-				"configuration": {
-				"request": "launch",
-				"program": "./a.out",
-				"externalConsole": true
-				}
-			}
-		}
-	}' > .vimspector.json
+		"Launch": {
+		"adapter": "vscode-cpptools",
+		"configuration": {
+		"request": "launch",
+		"program": "./a.out",
+		"externalConsole": true
+	}
+}
+}
+}' > .vimspector.json
 }
 
 
@@ -275,7 +275,7 @@ stopwatch() {
 
 alias tlprc="sudo vim ~/.dot/sys/tlp.conf"
 #alias vrc="cd ~/.config/nvim  && vim -c 'CocCommand explorer --toggle' plug.vim && cd -"
-alias vrc="cd ~/.config/nvim  && vim plug.vim && cd -"
+alias vrc="cd ~/.config/nvim  && vim init.vim && cd -"
 alias zpf="vim ~/.zprofile"
 alias zrc="vim ~/.zshrc"
 alias crc="vim ~/.uncrustify.cfg"
@@ -397,7 +397,13 @@ alias uxn="cd ~/.uxn"
 alias gcl="git clone"
 alias glo="fzf-git-log"
 alias gst="fzf-git-status"
-alias gch="fzf-git-checkout"
+function gch {
+	if [[ $1 == "" ]]; then
+		fzf-git-checkout
+	else
+		git checkout $1
+	fi
+}
 
 
 ### SSH

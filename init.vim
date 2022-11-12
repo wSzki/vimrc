@@ -127,9 +127,11 @@ noremap gg gg=G``zz :execute 'match Search /\%'.line('.').'l/'<CR>
 
 nnoremap <leader>dp :Gitsigns preview_hunk<CR>
 nnoremap <leader>dl :Gitsigns setqflist<CR>
-nnoremap <leader>dhl
+nnoremap <leader>diff
 			\ :Gitsigns toggle_linehl<CR>
+			\ :Gitsigns toggle_numhl<CR>
 			\ :Gitsigns toggle_deleted<CR>
+			"\ :Gitsigns setqflist<CR>
 
 
 nnoremap <leader>vi :Vista<CR>
@@ -312,7 +314,7 @@ autocmd FileType WhichKey highlight WhichKeyFloat guibg=#2A2E31 ctermbg=black ct
 " ..........................................................
 " ........................ UNDOTREE ........................
 " ..........................................................
-nnoremap <C-u> :UndotreeToggle<cr>
+nnoremap <leader>u :UndotreeToggle<cr>
 let g:undotree_WindowLayout         = 2
 let g:undotree_ShortIndicators      = 1
 let g:undotree_SetFocusWhenToggle   = 1

@@ -67,10 +67,10 @@ set foldlevelstart=20
 set nowrap
 set cursorcolumn
 set cursorline
-"set linebreak
-"set ruler
-"set tabstop=4
-"set shiftwidth=4
+set linebreak
+set ruler
+set tabstop=4
+set shiftwidth=4
 "set breakindent
 "set breakindentopt=shift:2
 "set showbreak=↳
@@ -190,6 +190,7 @@ Plug 'embear/vim-uncrustify'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
 "Plug 'nvim-neo-tree/neo-tree.nvim',  {'on' : ['NeoTreeFocusToggle', 'NeoTreeFloatToggle']}
 Plug 'nvim-neo-tree/neo-tree.nvim'
+Plug 'folke/trouble.nvim'
 
 " ..........................................................
 " ......................... THEMES .........................
@@ -502,6 +503,12 @@ require('leap').set_default_keymaps()
 --- LUALINE
 require('lualine').setup{options = {icons_enabled = false}}
 
+--- TROUBLE
+require("trouble").setup {
+	auto_open = true, -- automatically open the list when you have diagnostics
+	auto_close = true, -- automatically close the list when you have no diagnostics
+}
+
 --- BUFFERLINE
 require'bufferline'.setup{
 highlights = { fill = {bg = '#1f2428'}},
@@ -515,5 +522,14 @@ text_align = "left"
 }
 --- NUMB
 require('numb').setup()
+
+vim.lsp.handlers["textDocument/publishDiagnostics"] =
+    vim.lsp.with(
+    vim.lsp.diagnostic.on_publish_diagnostics,
+    {
+        virtual_text = true,
+	signs = true
+    }
+)
 
 EOF

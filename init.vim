@@ -133,7 +133,7 @@ nnoremap <leader>diff
 			\ :Gitsigns toggle_deleted<CR>
 			"\ :Gitsigns setqflist<CR>
 
-"nnoremap <leader>qf :TroubleToggle<CR>
+nnoremap <leader>qf :TroubleToggle<CR>
 
 nnoremap <leader>vi :Vista<CR>
 
@@ -199,7 +199,7 @@ Plug 'ggandor/leap.nvim'
 Plug 'folke/which-key.nvim'
 Plug 'embear/vim-uncrustify'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
-"Plug 'nvim-neo-tree/neo-tree.nvim',  {'on' : ['NeoTreeFocusToggle', 'NeoTreeFloatToggle']}
+Plug 'nvim-neo-tree/neo-tree.nvim',  {'on' : ['NeoTreeFocusToggle', 'NeoTreeFloatToggle']}
 "Plug 'nvim-neo-tree/neo-tree.nvim'
 Plug 'folke/trouble.nvim'
 Plug 'lewis6991/gitsigns.nvim'
@@ -210,7 +210,7 @@ Plug 'kevinhwang91/nvim-hlslens'
 " ......................... THEMES .........................
 " ..........................................................
 Plug 'sainnhe/gruvbox-material'
-Plug 'lifepillar/vim-gruvbox8'
+"Plug 'lifepillar/vim-gruvbox8'
 Plug 'nvim-lualine/lualine.nvim'
 
 " ..........................................................
@@ -261,8 +261,8 @@ Plug 'akinsho/bufferline.nvim',         { 'tag'    : 'v2.*'              }
 " .......................... LAZY ..........................
 " ..........................................................
 Plug 'pandark/42header.vim',            { 'on'     : 'FortyTwoHeader'    } " 42 header
-Plug 'junegunn/fzf',                    { 'on'     : ['Files', 'Buffers', 'GFiles', 'BCommits', 'Ag', 'History', 'BLines', 'Lines'] } " FZF
-Plug 'junegunn/fzf.vim',                { 'on'     : ['Files', 'Buffers', 'GFiles', 'BCommits', 'Ag', 'History', 'BLines', 'Lines'] } " FZF
+"Plug 'junegunn/fzf',                    { 'on'     : ['Files', 'Buffers', 'GFiles', 'BCommits', 'Ag', 'History', 'BLines', 'Lines'] } " FZF
+"Plug 'junegunn/fzf.vim',                { 'on'     : ['Files', 'Buffers', 'GFiles', 'BCommits', 'Ag', 'History', 'BLines', 'Lines'] } " FZF
 Plug 'norcalli/nvim-colorizer.lua' ,              { 'on'     : 'ColorizerToggle'       } " HEX Color display
 Plug 'junegunn/vim-easy-align',         { 'on'     : '<Plug>(EasyAlign)' } " Align
 Plug 'mhinz/vim-sayonara',              { 'on'     : 'Sayonara'          } " Quit buffer  or tab
@@ -546,7 +546,7 @@ current_line_blame_opts = {
 	},
 	preview_config = {
 		-- Options passed to nvim_open_win
-		border = 'none', --- single
+		border = 'single', --- single
 		style = 'minimal',
 		relative = 'cursor',
 		row = 0,

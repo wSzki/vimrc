@@ -227,6 +227,7 @@ function vimspector {
 		"configuration": {
 		"request": "launch",
 		"program": "./a.out",
+		"args": ["", ""],
 		"externalConsole": true
 	}
 }

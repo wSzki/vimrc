@@ -198,11 +198,12 @@ Plug 'ggandor/leap.nvim'
 Plug 'folke/which-key.nvim'
 Plug 'embear/vim-uncrustify'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
-"Plug 'nvim-neo-tree/neo-tree.nvim',  {'on' : ['NeoTreeFocusToggle', 'NeoTreeFloatToggle']}
-Plug 'nvim-neo-tree/neo-tree.nvim'
+Plug 'nvim-neo-tree/neo-tree.nvim',  {'on' : ['NeoTreeFocusToggle', 'NeoTreeFloatToggle']}
+"Plug 'nvim-neo-tree/neo-tree.nvim'
 Plug 'folke/trouble.nvim'
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'akinsho/git-conflict.nvim'
+Plug 'kevinhwang91/nvim-hlslens'
 
 " ..........................................................
 " ......................... THEMES .........................
@@ -517,7 +518,7 @@ require('lualine').setup{options = {icons_enabled = false}}
 
 --- TROUBLE
 require("trouble").setup {
-	auto_open = true, -- automatically open the list when you have diagnostics
+	auto_open = false, -- automatically open the list when you have diagnostics
 	auto_close = true, -- automatically close the list when you have no diagnostics
 }
 
@@ -535,29 +536,33 @@ text_align = "left"
 
 --- GIT SIGNS
 require('gitsigns').setup({
- current_line_blame = true,
-  current_line_blame_opts = {
-    virt_text = true,
-    virt_text_pos = 'right_align', -- 'eol' | 'overlay' | 'right_align'
-    delay = 1000,
-    ignore_whitespace = true,
-  },
-  preview_config = {
-    -- Options passed to nvim_open_win
-    border = 'none', --- single
-    style = 'minimal',
-    relative = 'cursor',
-    row = 0,
-    col = 1
-  },
+current_line_blame = true,
+current_line_blame_opts = {
+	virt_text = true,
+	virt_text_pos = 'right_align', -- 'eol' | 'overlay' | 'right_align'
+	delay = 1000,
+	ignore_whitespace = true,
+	},
+	preview_config = {
+		-- Options passed to nvim_open_win
+		border = 'none', --- single
+		style = 'minimal',
+		relative = 'cursor',
+		row = 0,
+		col = 1
+		},
 })
 
 --- GIT CONFLICT
 require('git-conflict').setup()
 
+--- BETTER SEARCH
+require('hlslens').setup()
+
 --- NUMB
 require('numb').setup()
 
+--- VIRUTAL TEXT
 vim.lsp.handlers["textDocument/publishDiagnostics"] =
 vim.lsp.with(
 vim.lsp.diagnostic.on_publish_diagnostics,

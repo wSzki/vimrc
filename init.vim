@@ -188,7 +188,8 @@ Plug 'ggandor/leap.nvim'
 Plug 'folke/which-key.nvim'
 Plug 'embear/vim-uncrustify'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
-Plug 'nvim-neo-tree/neo-tree.nvim',  {'on' : ['NeoTreeFocusToggle', 'NeoTreeFloatToggle']}
+"Plug 'nvim-neo-tree/neo-tree.nvim',  {'on' : ['NeoTreeFocusToggle', 'NeoTreeFloatToggle']}
+Plug 'nvim-neo-tree/neo-tree.nvim'
 
 " ..........................................................
 " ......................... THEMES .........................
@@ -472,9 +473,9 @@ colorscheme gruvbox-material
 hi cUserSpecialCharacter ctermfg=15 guifg=#D08770
 "autocmd! ColorScheme * highlight NormalFloat guibg=#191d20
 "autocmd! ColorScheme * highlight FloatBorder guifg=#191d20 guibg=#191d20
-hi CocExplorerNormalFloatBorder guifg=#414347 guibg=#272B34
-hi CocExplorerNormalFloat guibg=#272B34
-hi CocExplorerSelectUI guibg=#EBCB8B guifg=black
+"hi CocExplorerNormalFloatBorder guifg=#414347 guibg=#272B34
+"hi CocExplorerNormalFloat guibg=#272B34
+"hi CocExplorerSelectUI guibg=#EBCB8B guifg=black
 hi Pmenu guibg=#2A2E31
 
 
@@ -504,9 +505,12 @@ require('lualine').setup{options = {icons_enabled = false}}
 --- BUFFERLINE
 require'bufferline'.setup{
 highlights = { fill = {bg = '#1f2428'}},
-options = {
-	show_close_icon = false,
-	show_buffer_close_icons = false,
+options = { show_close_icon = false, show_buffer_close_icons = false,
+offsets = {{
+filetype   = "neo-tree",
+text       = " [     ]",
+text_align = "left"
+}}
 }
 }
 --- NUMB

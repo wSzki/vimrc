@@ -191,6 +191,8 @@ Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
 "Plug 'nvim-neo-tree/neo-tree.nvim',  {'on' : ['NeoTreeFocusToggle', 'NeoTreeFloatToggle']}
 Plug 'nvim-neo-tree/neo-tree.nvim'
 Plug 'folke/trouble.nvim'
+Plug 'lewis6991/gitsigns.nvim'
+Plug 'akinsho/git-conflict.nvim'
 
 " ..........................................................
 " ......................... THEMES .........................
@@ -213,11 +215,11 @@ Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-nvim-lua'
-Plug 'saadparwaiz1/cmp_luasnip'
+"Plug 'saadparwaiz1/cmp_luasnip'
 
 "  Snippets
-Plug 'L3MON4D3/LuaSnip'
-Plug 'rafamadriz/friendly-snippets'
+"Plug 'L3MON4D3/LuaSnip'
+"Plug 'rafamadriz/friendly-snippets'
 
 Plug 'VonHeikemen/lsp-zero.nvim'
 
@@ -227,7 +229,7 @@ Plug 'VonHeikemen/lsp-zero.nvim'
 Plug 'mhinz/vim-startify'             " Startpage + session manager
 Plug 'preservim/nerdcommenter'        " Commenter
 Plug 'mg979/vim-visual-multi'         " Multi cursor
-Plug 'airblade/vim-gitgutter'         " Git signs
+"Plug 'airblade/vim-gitgutter'         " Git signs
 Plug 'thirtythreeforty/lessspace.vim' " Trim spaces
 Plug 'myusuf3/numbers.vim'            " Relative numbers when needed
 Plug 'vim-scripts/restore_view.vim'   " Restore view to last line
@@ -520,16 +522,23 @@ text_align = "left"
 }}
 }
 }
+
+--- GIT SIGNS
+require('gitsigns').setup()
+
+--- GIT CONFLICT
+require('git-conflict').setup()
+
 --- NUMB
 require('numb').setup()
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] =
-    vim.lsp.with(
-    vim.lsp.diagnostic.on_publish_diagnostics,
-    {
-        virtual_text = true,
+vim.lsp.with(
+vim.lsp.diagnostic.on_publish_diagnostics,
+{
+	virtual_text = true,
 	signs = true
-    }
+}
 )
 
 EOF

@@ -133,6 +133,7 @@ nnoremap <leader>diff
 			\ :Gitsigns toggle_deleted<CR>
 			"\ :Gitsigns setqflist<CR>
 
+"nnoremap <leader>qf :TroubleToggle<CR>
 
 nnoremap <leader>vi :Vista<CR>
 
@@ -198,7 +199,7 @@ Plug 'ggandor/leap.nvim'
 Plug 'folke/which-key.nvim'
 Plug 'embear/vim-uncrustify'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
-Plug 'nvim-neo-tree/neo-tree.nvim',  {'on' : ['NeoTreeFocusToggle', 'NeoTreeFloatToggle']}
+"Plug 'nvim-neo-tree/neo-tree.nvim',  {'on' : ['NeoTreeFocusToggle', 'NeoTreeFloatToggle']}
 "Plug 'nvim-neo-tree/neo-tree.nvim'
 Plug 'folke/trouble.nvim'
 Plug 'lewis6991/gitsigns.nvim'

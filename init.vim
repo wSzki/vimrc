@@ -124,6 +124,14 @@ noremap gg gg=G``zz :execute 'match Search /\%'.line('.').'l/'<CR>
 " ..........................................................
 " ................... PLUGINS SHORTCUTS ....................
 " ..........................................................
+
+nnoremap <leader>dp :Gitsigns preview_hunk<CR>
+nnoremap <leader>dl :Gitsigns setqflist<CR>
+nnoremap <leader>dhl
+			\ :Gitsigns toggle_linehl<CR>
+			\ :Gitsigns toggle_deleted<CR>
+
+
 nnoremap <leader>vi :Vista<CR>
 
 noremap <leader>c1 :CommentBanner --pattern =,1-,=  --width 80 --comment true<CR>
@@ -524,7 +532,23 @@ text_align = "left"
 }
 
 --- GIT SIGNS
-require('gitsigns').setup()
+require('gitsigns').setup({
+ current_line_blame = true,
+  current_line_blame_opts = {
+    virt_text = true,
+    virt_text_pos = 'right_align', -- 'eol' | 'overlay' | 'right_align'
+    delay = 1000,
+    ignore_whitespace = true,
+  },
+  preview_config = {
+    -- Options passed to nvim_open_win
+    border = 'none', --- single
+    style = 'minimal',
+    relative = 'cursor',
+    row = 0,
+    col = 1
+  },
+})
 
 --- GIT CONFLICT
 require('git-conflict').setup()

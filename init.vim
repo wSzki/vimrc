@@ -131,6 +131,8 @@ noremap <leader>c2 :CommentBanner --pattern .,1.,.  --width 60 --comment true<CR
 
 nnoremap <leader>co :ColorizerToggle<CR>
 
+nnoremap <C-p> :NeoTreeFocusToggle<CR>
+
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
@@ -186,6 +188,8 @@ Plug 'ggandor/leap.nvim'
 Plug 'folke/which-key.nvim'
 Plug 'embear/vim-uncrustify'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
+Plug 'nvim-neo-tree/neo-tree.nvim',  {'on' : ['NeoTreeFocusToggle', 'NeoTreeFloatToggle']}
+
 " ..........................................................
 " ......................... THEMES .........................
 " ..........................................................

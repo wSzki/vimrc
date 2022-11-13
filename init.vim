@@ -144,13 +144,20 @@ nnoremap <leader>co :ColorizerToggle<CR>
 
 nnoremap <C-p> :NeoTreeFocusToggle<CR>
 
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-nnoremap <leader>fh <cmd>Telescope help_tags<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+"nnoremap <leader>ff <cmd>Telescope find_files<cr>
+"nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+"nnoremap <leader>fb <cmd>Telescope buffers<cr>
+"nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+"nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+"nnoremap <leader>fb <cmd>Telescope buffers<cr>
+"nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
+nnoremap <leader>ff :Files <CR>
+nnoremap <leader>fl :Lines <CR>
+nnoremap <leader>fb :Buffers <CR>
+nnoremap <leader>fg :Ag <CR>
+nnoremap <leader>fh :History <CR>
+
 
 " ..........................................................
 " ........................ DISABLE .........................
@@ -247,7 +254,7 @@ Plug 'dstein64/nvim-scrollview'       " Scrollbar
 Plug 'nathom/filetype.nvim'           " Unnsure if useful, reduce startup time
 Plug 'folke/trouble.nvim'             " Quickfix window
 
-Plug 'nvim-telescope/telescope.nvim',   { 'tag': '0.1.0'    }
+"Plug 'nvim-telescope/telescope.nvim',   { 'tag': '0.1.0'    }
 Plug 'nvim-treesitter/nvim-treesitter', { 'do' : 'TSUpdate' } " Better syntax highlighting
 Plug 'akinsho/bufferline.nvim',         { 'tag': 'v2.*'     }
 
@@ -264,6 +271,8 @@ Plug 'liquidfun/vim-comment-banners',   { 'on' : 'CommentBanner'                
 Plug 'gelguy/wilder.nvim',              { 'on' : 'CmdlineEnter'                              }
 Plug 'nvim-neo-tree/neo-tree.nvim',     { 'on' : ['NeoTreeFocusToggle','NeoTreeFloatToggle'] }
 Plug 'puremourning/vimspector',         { 'on' : '<Plug>VimspectorToggleBreakpoint'          }
+Plug 'junegunn/fzf',                    { 'on' : ['Files', 'Buffers', 'GFiles', 'BCommits', 'Ag', 'History', 'BLines', 'Lines'] } " FZF
+Plug 'junegunn/fzf.vim',                { 'on' : ['Files', 'Buffers', 'GFiles', 'BCommits', 'Ag', 'History', 'BLines', 'Lines'] } " FZF
 Plug 'kevinhwang91/nvim-hlslens'
 Plug 'embear/vim-uncrustify'
 
@@ -297,8 +306,6 @@ Plug 'tyru/open-browser.vim',            { 'for' : ['c', 'cpp', 'hpp']          
 " ..........................................................
 "Plug 'dosimple/workspace.vim',{'on': 'WS' }
 "Plug 'voldikss/vim-floaterm'
-Plug 'junegunn/fzf',                    { 'on'     : ['Files', 'Buffers', 'GFiles', 'BCommits', 'Ag', 'History', 'BLines', 'Lines'] } " FZF
-Plug 'junegunn/fzf.vim',                { 'on'     : ['Files', 'Buffers', 'GFiles', 'BCommits', 'Ag', 'History', 'BLines', 'Lines'] } " FZF
 "Plug 'akinsho/toggleterm.nvim',         { 'on'     : 'ToggleTerm'        } " Better split terminal
 "Plug 'wellle/context.vim'             " Get context within code
 

@@ -15,14 +15,9 @@
 # Startuptime measurments - uncomment zprof at EOF
 #zmodload zsh/zprof
 
-if [ -f ~/.instant-zsh.zsh ]; then
-	source ~/.instant-zsh.zsh
-	instant-zsh-pre "%5Fλ %8F~ %f"
-fi
-
-if [ -f ~/.zplug/repos/rupa/z/z.sh ]; then
-	. ~/.zplug/repos/rupa/z/z.sh
-fi
+[ -f ~/.instant-zsh.zsh ]         && source ~/.instant-zsh.zsh && instant-zsh-pre "%5Fλ %8F~ %f"
+[ -f ~/.zplug/repos/rupa/z/z.sh ] && . ~/.zplug/repos/rupa/z/z.sh
+[ -f ~/.fzf.zsh ]                 && ~/.fzf.zsh
 
 # TMUX AUTOSTART
 # If not running interactively, do not do anything # Otherwise start tmux
@@ -732,6 +727,13 @@ if [ ! -f ~/.instant-zsh.zsh ]; then
 	instant-zsh-pre "%5Fλ %8F~ %f"
 fi
 
+# FZF
+if [ ! -f ~/.fzf.zsh ]; then
+	if [ ! -f /usr/bin/fzf ]; then
+		git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+		~/.fzf/install
+	fi
+fi
 
 # ZPLUG install
 if [ ! -d ~/.zplug ]; then

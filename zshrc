@@ -11,15 +11,15 @@
 #                                                                              #
 # **************************************************************************** #
 
+# Startuptime measurments - uncomment zprof at EOF
 #zmodload zsh/zprof
 
-if [ ! -d ~/.zplug ]; then
-	curl -sL --proto-redir -all,https \
-		https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
-			sleep 2
-			exec zsh
+if [ -f ~/.instant-zsh.zsh ]; then
+	source ~/.instant-zsh.zsh
+	instant-zsh-pre "%5Fλ %8F~ %f"
 fi
 
+# TMUX AUTOSTART
 # If not running interactively, do not do anything # Otherwise start tmux
 #[[ $- != *i* ]] && return ; [[ -z "$TMUX" ]] && exec tmux
 
@@ -43,7 +43,10 @@ if [ -d ~/.zplug ]; then
 	zplug "amaya382/zsh-fzf-widgets"
 	#zplug "laggardkernel/zsh-thefuck", defer:2
 	if ! zplug check; then	zplug install && exec zsh; fi
+
 	zplug load #--verbose
+
+
 
 ########################## SYNTAX HIGHLIGHTING #######################
 
@@ -100,7 +103,8 @@ source /usr/share/fzf/completion.zsh
 #source /etc/profile.d/autojump.zsh
 #source /home/wsz/.config/broot/launcher/bash/br
 
-fi
+fi # END OF PLUGIN SCOPE
+
 ######################## TMUX ###################################
 
 #if [ "$TMUX" = "" ]; then tmux; fi
@@ -709,5 +713,26 @@ stty -ixon # disables ctrl+s
 #source /home/wsz/.config/broot/launcher/bash/br
 
 if type direnv > /dev/null; then eval "$(direnv hook zsh)"; fi
-export CPATH=$CPATH:/home/wsz/irc/includes
-export CPATH=$CPATH:/home/wsz/irc/includes/numericReplies
+
+
+# ASYNC START
+if [ ! -f ~/.instant-zsh.zsh ]; then
+	curl -fsSL -o ~/.instant-zsh.zsh https://gist.github.com/romkatv/8b318a610dc302bdbe1487bb1847ad99/raw
+	source ~/.instant-zsh.zsh
+	instant-zsh-pre "%5Fλ %8F~ %f"
+fi
+
+
+# ZPLUG install
+if [ ! -d ~/.zplug ]; then
+	curl -sL --proto-redir -all,https \
+		https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
+			sleep 2
+			exec zsh
+fi
+
+
+
+
+instant-zsh-post
+

@@ -297,8 +297,8 @@ Plug 'tyru/open-browser.vim',            { 'for' : ['c', 'cpp', 'hpp']          
 " ..........................................................
 "Plug 'dosimple/workspace.vim',{'on': 'WS' }
 "Plug 'voldikss/vim-floaterm'
-"Plug 'junegunn/fzf',                    { 'on'     : ['Files', 'Buffers', 'GFiles', 'BCommits', 'Ag', 'History', 'BLines', 'Lines'] } " FZF
-"Plug 'junegunn/fzf.vim',                { 'on'     : ['Files', 'Buffers', 'GFiles', 'BCommits', 'Ag', 'History', 'BLines', 'Lines'] } " FZF
+Plug 'junegunn/fzf',                    { 'on'     : ['Files', 'Buffers', 'GFiles', 'BCommits', 'Ag', 'History', 'BLines', 'Lines'] } " FZF
+Plug 'junegunn/fzf.vim',                { 'on'     : ['Files', 'Buffers', 'GFiles', 'BCommits', 'Ag', 'History', 'BLines', 'Lines'] } " FZF
 "Plug 'akinsho/toggleterm.nvim',         { 'on'     : 'ToggleTerm'        } " Better split terminal
 "Plug 'wellle/context.vim'             " Get context within code
 

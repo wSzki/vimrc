@@ -37,8 +37,9 @@ if [ -d ~/.zplug ]; then
 
 	source ~/.zplug/init.zsh
 
-	zplug "aloxaf/fzf-tab"
 	zplug "rupa/z"
+
+	zplug "aloxaf/fzf-tab"
 	zplug "supercrabtree/k", defer:2
 	zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 	zplug "zsh-users/zsh-syntax-highlighting", defer:2
@@ -104,8 +105,10 @@ autoload -Uz compinit
 compinit
 ########################### SOURCE ###################################
 
+# For ctrl+f and **
 source /usr/share/fzf/key-bindings.zsh
 source /usr/share/fzf/completion.zsh
+
 #source /etc/profile.d/autojump.zsh
 #source /home/wsz/.config/broot/launcher/bash/br
 

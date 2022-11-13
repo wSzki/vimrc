@@ -11,12 +11,17 @@
 #                                                                              #
 # **************************************************************************** #
 
+
 # Startuptime measurments - uncomment zprof at EOF
 #zmodload zsh/zprof
 
 if [ -f ~/.instant-zsh.zsh ]; then
 	source ~/.instant-zsh.zsh
 	instant-zsh-pre "%5Fλ %8F~ %f"
+fi
+
+if [ -f ~/.zplug/repos/rupa/z/z.sh ]; then
+	. ~/.zplug/repos/rupa/z/z.sh
 fi
 
 # TMUX AUTOSTART
@@ -33,6 +38,7 @@ if [ -d ~/.zplug ]; then
 	source ~/.zplug/init.zsh
 
 	zplug "aloxaf/fzf-tab"
+	zplug "rupa/z"
 	zplug "supercrabtree/k", defer:2
 	zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 	zplug "zsh-users/zsh-syntax-highlighting", defer:2
@@ -325,8 +331,9 @@ alias ok="nvim"
 
 ########################### FASD ###############################
 
-eval "$(fasd --init auto)"
-alias j="fasd_cd -d"
+#eval "$(fasd --init auto)"
+#alias j="fasd_cd -d"
+alias j="z"
 alias t="tldr"
 alias v="xdotool key v i m space Ctrl+f"
 alias c="xdotool key c d space asterisk asterisk Tab"

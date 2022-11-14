@@ -705,8 +705,6 @@ alias touchpad_restart="xinput disable 11 && xinput enable 11"
 #   export EDITOR='mvim'
 # fi
 
-stty -ixon # disables ctrl+s
-
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -714,11 +712,7 @@ stty -ixon # disables ctrl+s
 [ -f "/home/wsz/.ghcup/env" ] && source "/home/wsz/.ghcup/env" # ghcup-env
 
 
-#zprof
-#source /home/wsz/.config/broot/launcher/bash/br
-
 if type direnv > /dev/null; then eval "$(direnv hook zsh)"; fi
-
 
 # ASYNC START
 if [ ! -f ~/.instant-zsh.zsh ]; then
@@ -730,7 +724,7 @@ fi
 # FZF
 if [ ! -f ~/.fzf.zsh ]; then
 	if [ ! -f /usr/bin/fzf ]; then
-		git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+		git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf/
 		~/.fzf/install
 	fi
 fi
@@ -743,8 +737,6 @@ if [ ! -d ~/.zplug ]; then
 			exec zsh
 fi
 
-
-
-
+stty -ixon # disables ctrl+s
 instant-zsh-post
-
+#zprof

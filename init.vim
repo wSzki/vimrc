@@ -138,7 +138,11 @@ nnoremap <leader>qf :TroubleToggle<CR>
 nnoremap <leader>vi :Vista<CR>
 
 noremap <leader>c1 :CommentBanner --pattern =,1-,=  --width 80 --comment true<CR>
-noremap <leader>c2 :CommentBanner --pattern .,1.,.  --width 60 --comment true<CR>
+noremap <leader>c2 :CommentBanner --pattern -,1-,-  --width 60 --comment true<CR>
+noremap <leader>c3 :CommentBanner --pattern 1.,.    --width 40 --comment true -1 align:left<CR>
+
+noremap <leader>c4 :CommentBanner -w 50   -p -,12,-   -1 align:left -2 align:right -c true <CR>
+noremap <leader>c5 :CommentBanner --pattern -,1,2,- -1 align:left -2 align:left -w 50 -c true -B \| -A \| <CR>
 
 nnoremap <leader>co :ColorizerToggle<CR>
 
@@ -495,6 +499,10 @@ let g:gruvbox_material_colors_override = {
 			\ }
 colorscheme gruvbox-material
 
+highlight DiffText   cterm=none ctermfg=fg ctermbg=none gui=none guifg=fg guibg=#3c1f1e
+highlight DiffAdd    cterm=none ctermfg=fg ctermbg=none gui=none guifg=fg guibg=#333e34
+"highlight DiffChange cterm=none ctermfg=fg ctermbg=none gui=none guifg=fg guibg=#3c1f1e
+
 hi cUserSpecialCharacter ctermfg=15 guifg=#D08770
 "autocmd! ColorScheme * highlight NormalFloat guibg=#191d20
 "autocmd! ColorScheme * highlight FloatBorder guifg=#191d20 guibg=#191d20
@@ -565,7 +573,9 @@ current_line_blame_opts = {
 })
 
 --- GIT CONFLICT
-require('git-conflict').setup()
+require('git-conflict').setup(
+
+)
 
 --- BETTER SEARCH
 require('hlslens').setup()

@@ -740,3 +740,5 @@ fi
 stty -ixon # disables ctrl+s
 instant-zsh-post
 #zprof
+export CPATH=$CPATH:/home/wsz/irc/includes/
+export CPATH=$CPATH:/home/wsz/irc/includes/numericReplies

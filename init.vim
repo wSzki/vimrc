@@ -204,7 +204,7 @@ call plug#begin('~/.vim/plugged')
 " ..........................................................
 " ........................ TESTING .........................
 " ..........................................................
-
+Plug 'conornewton/vim-latex-preview'
 " ..........................................................
 " ......................... THEMES .........................
 " ..........................................................
@@ -225,7 +225,7 @@ Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-nvim-lua'
-"Plug 'saadparwaiz1/cmp_luasnip'
+Plug 'saadparwaiz1/cmp_luasnip'
 
 "  Snippets
 "Plug 'L3MON4D3/LuaSnip'
@@ -319,7 +319,8 @@ call plug#end()
 " ==============================================================================
 " ------------------------------- PLUG SETTINGS --------------------------------
 " ==============================================================================
-
+let g:latex_pdf_viewer="zathura"
+autocmd Filetype tex setl updatetime=1
 " ..........................................................
 " ......................  WHICH KEY ........................
 " ..........................................................
@@ -555,7 +556,7 @@ text_align = "left"
 
 --- GIT SIGNS
 require('gitsigns').setup({
-current_line_blame = true,
+current_line_blame = false,
 current_line_blame_opts = {
 	virt_text = true,
 	virt_text_pos = 'right_align', -- 'eol' | 'overlay' | 'right_align'

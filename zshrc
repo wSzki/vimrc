@@ -348,6 +348,7 @@ alias delete="mv -t ~/.Trash/"
 ########################### ALIASES ##################################
 
 ### DEFAULTS
+alias exvim="nvim -u ~/vimrc"
 alias ..="cd .."
 alias cddl="cd ~/Downloads"
 alias wip="cd ~/42/wip"

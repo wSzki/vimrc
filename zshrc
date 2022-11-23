@@ -226,6 +226,7 @@ function back {
 	cp ~/.zshrc ~/.vimrc.git/zshrc
 	cd ~/.vimrc.git && git add . && git status && git commit -m Backup && git push
 	cd $CURRENT_DIR
+
 }
 
 function tdvk { tmux kill-session -t tidal }

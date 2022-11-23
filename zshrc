@@ -281,6 +281,8 @@ stopwatch() {
 ########################### DOTFILES ##################################
 
 
+alias yay="pikaur"
+alias paru="pikaur"
 alias tlprc="sudo vim ~/.dot/sys/tlp.conf"
 #alias vrc="cd ~/.config/nvim  && vim -c 'CocCommand explorer --toggle' plug.vim && cd -"
 alias vrc="cd ~/.config/nvim  && vim init.vim && cd -"

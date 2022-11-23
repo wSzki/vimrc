@@ -11,6 +11,9 @@
 #                                                                              #
 # **************************************************************************** #
 
+# ==============================================================================
+# ------------------------------------ CORE ------------------------------------
+# ==============================================================================
 
 # Startuptime measurments - uncomment zprof at EOF
 #zmodload zsh/zprof
@@ -127,15 +130,36 @@ setopt appendhistory
 setopt AUTO_CD
 #setopt ALWAYS_TO_END
 
+# ==============================================================================
+# ------------------------------------ NIX -------------------------------------
+# ==============================================================================
+
+
+which nix &> /dev/null
+if [[ $? -eq 0 ]]; then
+
 #export DOTFILES="$(echo $HOME/dotfiles | tr -d '\r')"
-function nix-clean  { nix-store --gc }
-function shell      { nix-shell -p "$@" }
-function lobster    { nix-env -iA nixpkgs.$1 }
+function nix-clean { nix-store --gc            }
+function shell     { nix-shell -p   "$@"       }
+function lobster   { nix-env   -iA  nixpkgs.$1 }
 
 function node     { shell nodejs nodePackages.npm }
 
-
 function crab       { ARGS="${@:2}"; shell $1 --run "sh -c \"$ARGS\""}
+function so       { crab so                       "so  -e google $@" }
+function lnav     { crab lnav                     "lnav $@"          }
+function pip      { crab python310Packages.pip    "pip $@"           }
+function howdoi   { crab python310Packages.howdoi "howdoi $@"        }
+function npm      { crab nodePackages.npm         "npm $@"           }
+function yarn     { crab nodePackages.yarn        "yarn $@"          }
+function chromium { crab ungoogled-chromium       "chromium $@"      }
+function wtf      { crab wtf                      "wtfutil $@"       }
+function gping    { crab gping                    "gping $@"         }
+function hn       { crab haxor-news               "hn $@"            }
+function dockerd  { crab docker                   "sudo dockerd $@"  }
+function code     { crab vscodium                 "codium $@"        }
+function fltrdr   { crab fltrdr "fltrdr --config-base ~/.dot/config/fltrdr $@" }
+
 function docker {
 	if [[ "$1" == "reset" ]]; then
 		crab docker "echo '# DOCKER FACTORY RESET #'
@@ -147,26 +171,10 @@ function docker {
 		crab docker "docker $@"
 	fi
 }
-function so     { crab so     "so  -e google $@" }
-function lnav   { crab lnav   "lnav   $@" }
-
-function pip      { crab python310Packages.pip    "pip $@"          }
-function howdoi   { crab python310Packages.howdoi "howdoi $@"       }
-function npm      { crab nodePackages.npm         "npm $@"          }
-function yarn     { crab nodePackages.yarn        "yarn $@"         }
-function chromium { crab ungoogled-chromium       "chromium $@"     }
-function wtf      { crab wtf                      "wtfutil $@"      }
-function gping    { crab gping                    "gping $@"        }
-function hn       { crab haxor-news               "hn $@"           }
-function dockerd  { crab docker                   "sudo dockerd $@" }
-function code     { crab vscodium                   "codium $@" }
-function fltrdr   { crab fltrdr                   "fltrdr --config-base ~/.dot/config/fltrdr $@" }
 
 #function docker { ARGS="$@"; shell docker                --run "sh -c \"docker $ARGS\"" }
 #function npm    { ARGS="$@"; shell nodePackages.npm      --run "sh -c \"npm $ARGS\""    }
 #function pip    { ARGS="$@"; shell python310Packages.pip --run "sh -c \"pip $ARGS\""    }
-#function so     { ARGS="$@"; shell so                    --run "sh -c \"so $ARGS\""     } # Stack
-#function fltrdr { ARGS="$@"; shell fltrdr                --run "sh -c \"fltrdr --config-base ~/.dot/config/fltrdr $ARGS\"" }
 #function lnav   { ARGS="$@"; shell lnav                  --run "sh -c \"lnav $ARGS\""     } # Stack
 
 function clam()     { ARGS=$@; shell $1 --run "$ARGS" }
@@ -189,19 +197,19 @@ function sen        { clam sen        $@ }
 function gitui      { clam gitui      $@ }
 function lazygit    { clam lazygit    $@ }
 function evince     { clam evince     $@ }
-#function delta      { clam delta            $@ }
+function delta      { clam delta      $@ }
 function gpg-tui    { clam gpg-tui    $@ }
 function wiki       { clam wiki-tui   $@ }
-function docui      { clam docui      $@ } # Docker do not use
+function docui      { clam docui      $@ } # Docker do  not use
 function lazydocker { clam lazydocker $@ } # Docker use this
 function tut        { clam tut        $@ } # Mastodon
-function xplr       { clam xplr       $@ } # File explorer
+function xplr       { clam xplr       $@ } # File   explorer
 function s-tui      { clam s-tui      $@ } # Stress test
 function hn         { clam haxor-news $@ }
 function uncrustify { clam uncrustify $@ }
 function lldb       { clam lldb       $@ }
 function gdb        { clam gdb        $@ }
-function scrcpy        { clam scrcpy        $@ }
+function scrcpy     { clam scrcpy     $@ }
 
 function browsh { shell browsh firefox --run browsh  }
 
@@ -248,14 +256,15 @@ alias snippets="cd  ~/.config/coc/ultisnips/ && v"
 
 
 function nix-shell-init () {
-VAR=$@
-cp ~/.dot/config/nix/envrc ./.envrc
-cp ~/.dot/config/nix/shell.nix ./
-sed -i "s/ooo/${VAR}/g" ./shell.nix
-direnv allow .
+	VAR=$@
+	cp ~/.dot/config/nix/envrc ./.envrc
+	cp ~/.dot/config/nix/shell.nix ./
+	sed -i "s/ooo/${VAR}/g" ./shell.nix
+	direnv allow .
 }
 #source ~/.config/zsh/zsh-nix-shell/nix-shell.plugin.zsh
 
+fi # END NIX
 
 countdown() {
 	start="$(( $(date +%s) + $1))"
@@ -278,9 +287,9 @@ stopwatch() {
 	done
 }
 
-########################### DOTFILES ##################################
-
-
+# ==============================================================================
+# ---------------------------------- ALIASES -----------------------------------
+# ==============================================================================
 alias yay="pikaur"
 alias paru="pikaur"
 alias tlprc="sudo vim ~/.dot/sys/tlp.conf"
@@ -442,7 +451,7 @@ alias renoise="pasuspender -- jackd ; jackd -r -d alsa &> /dev/null & /usr/local
 
 ### PACMAN
 alias pac="sudo pacman -S"
-alias pacss="pacman -Ss"
+alias pacs="pacman -Ss"
 alias pacsyu="sudo pacman -Syu"
 alias pac-orphans="pacman -Qtd"
 

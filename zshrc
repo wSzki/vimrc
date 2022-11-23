@@ -33,7 +33,6 @@ if [ -d ~/.zplug ]; then
 	source ~/.zplug/init.zsh
 
 	zplug "rupa/z"
-
 	zplug "aloxaf/fzf-tab"
 	zplug "supercrabtree/k", defer:2
 	zplug 'zplug/zplug', hook-build:'zplug --self-manage'

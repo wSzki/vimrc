@@ -227,8 +227,8 @@ Plug 'hrsh7th/cmp-nvim-lua'
 Plug 'saadparwaiz1/cmp_luasnip'
 
 "  Snippets
-"Plug 'L3MON4D3/LuaSnip'
-"Plug 'rafamadriz/friendly-snippets'
+Plug 'L3MON4D3/LuaSnip'
+Plug 'rafamadriz/friendly-snippets'
 
 Plug 'VonHeikemen/lsp-zero.nvim'
 
@@ -518,6 +518,20 @@ lua << EOF
 --- LSP
 local lsp = require('lsp-zero')
 lsp.preset('recommended')
+
+lsp.setup_nvim_cmp({
+  preselect = 'none',
+  completion = {
+    completeopt = 'menu,menuone,noinsert,noselect'
+  },
+  sources = {
+    {name = 'path'},
+    {name = 'luasnip', keyword_length = 2},
+    {name = 'nvim_lsp', keyword_length = 3},
+    {name = 'buffer', keyword_length = 3},
+  }
+})
+
 lsp.setup()
 
 --- NEOSCROLL

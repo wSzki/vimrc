@@ -219,11 +219,13 @@ alias    chloe="mc -u ploupi -m"
 #function tuir       { cap tuir}
 
 function back {
-	cd ~/.dot && git add . && git status && git commit -m Backup && git push && cd -
+	CURRENT_DIR=pwd
+	cd ~/.dot && git add . && git status && git commit -m Backup && git push
 	cp -r ~/.dot/config/nvim/* ~/.vimrc.git
 	cp ~/.dot/config/tmux/tmux.conf ~/.vimrc.git/
 	cp ~/.zshrc ~/.vimrc.git/zshrc
-	cd ~/.vimrc.git && git add . && git status && git commit -m Backup && git push && cd -
+	cd ~/.vimrc.git && git add . && git status && git commit -m Backup && git push
+	cd $CURRENT_DIR
 }
 
 function tdvk { tmux kill-session -t tidal }

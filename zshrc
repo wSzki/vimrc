@@ -27,8 +27,8 @@ export BOX=$DOTFILES/box
  # ---------------------------------------------------------
  # -------------------- TMUX AUTOSTART ---------------------
  # ---------------------------------------------------------
-# If not running interactively, do not do anything # Otherwise start tmux
-#[[ $- != *i* ]] && return ; [[ -z "$TMUX" ]] && exec tmux
+ # If not running interactively, do not do anything # Otherwise start tmux
+ #[[ $- != *i* ]] && return ; [[ -z "$TMUX" ]] && exec tmux
 
 # ----------------------------------------------------------
 # ------------------------ PLUGINS -------------------------
@@ -119,7 +119,7 @@ source /usr/share/fzf/completion.zsh
 #source /etc/profile.d/autojump.zsh
 #source /home/wsz/.config/broot/launcher/bash/br
 
-fi # END OF PLUGIN SCOPE
+fi ################################################### END ZPLUG
 
 # ----------------------------------------------------------
 # -------------------------- TMUX --------------------------
@@ -227,17 +227,17 @@ function nix-shell-init ()
  # ---------------------------------------------------------
  # ------------------------ DOCKER -------------------------
  # ---------------------------------------------------------
-function docker {
-	if [[ "$1" == "reset" ]]; then
-		crab docker "echo '# DOCKER FACTORY RESET #'
-		docker kill      $(docker ps -q)
-		docker container prune       --force
-		docker image     prune --all --force
-		docker system    prune --all --force --volumes"
-	else;
-		crab docker "docker $@"
-	fi
-}
+ function docker {
+	 if [[ "$1" == "reset" ]]; then
+		 crab docker "echo '# DOCKER FACTORY RESET #'
+		 docker kill      $(docker ps -q)
+		 docker container prune       --force
+		 docker image     prune --all --force
+		 docker system    prune --all --force --volumes"
+	 else;
+		 crab docker "docker $@"
+	 fi
+ }
 
 
 #source ~/.config/zsh/zsh-nix-shell/nix-shell.plugin.zsh
@@ -250,13 +250,29 @@ function tdv  { tmux kill-session -t tidal ; ~/.dot/tidal/tidal ~/.dot/tidal/mai
 function vcv  { export PIPEWIRE_LATENCY="2048/48000"; vcvrack }
 
 
+FILE="/etc/passwd"
 
 # ==============================================================================
 # ---------------------------------- ALIASES -----------------------------------
 # ==============================================================================
-alias yay="pikaur" && alias paru="pikaur"
+
+[ -f /bin/nvim ] && alias vim="nvim"
+
+alias yay="pikaur"    && alias paru="pikaur"
+alias del="trash-put" && alias dells="trash-list" && alias restore="trash-restore"
+alias sl="ls"         && alias ka="k -Ah"         && alias kk="k -Ah" && alias ls="k -h" && alias l="k -h" && alias lsa="k -hA --sort WORD"
+
+alias j="z"
+alias t="$(which tldr)"
+alias tldr="~/.tldr"
+alias v="xdotool key v i m space Ctrl+f"
+alias c="xdotool key c d space asterisk asterisk Tab"
+
+alias copy="xclip -sel clip"
+alias icat="kitty +kitten icat"
+alias cal="cal -m"
+
 alias tlprc="sudo vim ~/.dot/sys/tlp.conf"
-#alias vrc="cd ~/.config/nvim  && vim -c 'CocCommand explorer --toggle' plug.vim && cd -"
 alias vrc="cd ~/.config/nvim  && vim init.vim && cd -"
 alias zpf="vim ~/.zprofile"
 alias zrc="vim ~/.zshrc"
@@ -264,19 +280,19 @@ alias crc="vim ~/.uncrustify.cfg"
 alias xrc="vim ~/.xinitrc"
 alias trc="vim ~/.tmux.conf"
 alias vimc="vim ~/.vim/ftplugin/c_mappings.vim"
-alias csnippets="vim /home/wsz/.config/coc/ultisnips/c.snippets"
-alias cppsnippets="vim /home/wsz/.config/coc/ultisnips/cpp.snippets"
-alias cppsnippets="vim /home/wsz/.config/coc/ultisnips/cpp.snippets"
-alias jssnippets="vim /home/wsz/.config/coc/ultisnips/js.snippets"
-alias jsxsnippets="vim /home/wsz/.config/coc/ultisnips/javascriptreact.snippets"
-alias vdir="vim ~/.dot/vim/"
 alias krc="vim ~/.config/kitty/kitty.conf"
 alias irc="vim ~/.config/i3/conf.i3config"
 alias ibrc="vim ~/.config/i3/i3blocks.conf"
 alias isrc="vim ~/.config/i3/i3status.conf"
 alias ib2rc="vim ~/.config/i3/i3blocks2.conf"
 alias config="cd ~/.config"
-alias dotfiles="cd $DOTFILES"
+
+alias csnippets="vim /home/wsz/.config/coc/ultisnips/c.snippets"
+alias cppsnippets="vim /home/wsz/.config/coc/ultisnips/cpp.snippets"
+alias cppsnippets="vim /home/wsz/.config/coc/ultisnips/cpp.snippets"
+alias jssnippets="vim /home/wsz/.config/coc/ultisnips/js.snippets"
+alias jsxsnippets="vim /home/wsz/.config/coc/ultisnips/javascriptreact.snippets"
+
 alias glog4="git log --graph --pretty=oneline --abbrev-commit"
 alias glog1="git log --graph --oneline --decorate"
 alias glog2="git log --graph --oneline --decorate --branches --tags"
@@ -296,25 +312,7 @@ alias tidal="~/.dot/box/tidal/bin/tidal"
 
 ########################## VIM ######################################
 
-FILE="/etc/passwd"
 if [ -f /bin/nvim ];then alias vim="nvim" ; else alias vim="vim -u NONE"; fi
-
-########################### FASD ###############################
-
-#eval "$(fasd --init auto)"
-#alias j="fasd_cd -d"
-alias j="z"
-alias t="tldr"
-alias v="xdotool key v i m space Ctrl+f"
-alias c="xdotool key c d space asterisk asterisk Tab"
-
-########################### TRASH-CLI ###############################
-
-alias del="trash-put"
-alias dells="trash-list"
-alias restore="trash-restore"
-alias delete="mv -t ~/.Trash/"
-#set -o noclobber # prevent > override
 
 
 ########################### ALIASES ##################################
@@ -340,22 +338,15 @@ alias Makefile_edit="vim $MAKEFILE_PATH"
 
 ### MISC
 alias man=men
-alias qq="tmux kill-session"
-#alias vimspector='{"configurations": {"Launch": {"adapter": "vscode-cpptools","configuration": {"request": "launch","program": "./a.out","externalConsole": true}}}}'
 alias fxd="/bin/vim -c "FoxDotStart" -u ~/.dot/box/foxdot/foxdot.vimrc ~/.dot/box/foxdot/main.sc"
 alias frc="vim ~/.dot/box/foxdot/foxdot.vimrc"
 alias surge="gitap && npm run build && cd build && surge ./ amita.surge.sh"
 #alias surge="~/.yarn/bin/surge"
-alias top="gtop"
-alias icat="kitty +kitten icat"
 alias inc="echo \"export CPATH=$CPATH:$PWD\" >> ~/.zshrc; source ~/.zshrc"
 alias heavy="ps -Ao user,uid,comm,pid,pcpu,tty --sort=-pcpu | head -n 6"
 alias sudo_lock="sudo passwd -l root"
 alias sudo_unlock="sudo passwd -u root"
-alias cat="bat"
-alias ccat="bat --style=plain"
 alias serve="python -m http.server 8000"
-alias cal="cal -m"
 alias vsch="vim ~/.dot/sch.md"
 alias 42="cd ~/42"
 alias powertop="sudo powertop"
@@ -420,7 +411,6 @@ alias ntf="notify.sh"
 alias cppwd="pwd | copy"
 alias ,,="i3-msg move to scratchpad"
 alias info="info -v match-style=black,bgred,bold -v active-link-style=black,bgyellow,bold -v link-style=yellow"
-alias copy="xclip -sel clip"
 alias ytfzf="ytfzf -t"
 alias ack="ack --color-match=yellow --color-lineno=magenta --color-filename=blue"
 alias ipinfo="curl ipinfo.io"
@@ -438,12 +428,6 @@ alias governor-ondemand="sudo cpupower frequency-set -g ondemand"
 alias governor-conservative="sudo cpupower frequency-set -g conservative"
 alias powertop-report="sudo powertop --html=powerreport.html"
 ### K IS LS
-alias sl="ls"
-alias ka="k -Ah"
-alias kk="k -Ah"
-alias ls="k -h"
-alias l="k -h"
-alias lsa="k -hA --sort WORD"
 alias todo="vim ~/.dot/box/todo/todo.md"
 alias touchpad_restart="xinput disable 11 && xinput enable 11"
 ###		AUDIO
@@ -502,10 +486,10 @@ function vimspector {
 function dl () {
 	if [[ "$1" == "mp3" ]]; then
 		yt-dlp -xo '%(title)s.%(ext)s' --embed-thumbnail --audio-format mp3 $2;
-	if [[ "$1" == "wav" ]]; then
-		yt-dlp -xo '%(title)s.%(ext)s' --embed-thumbnail --audio-format wav $2;
-	fi;
-}
+		if [[ "$1" == "wav" ]]; then
+			yt-dlp -xo '%(title)s.%(ext)s' --embed-thumbnail --audio-format wav $2;
+		fi;
+	}
 
 # COUNTDOWN ............................
 # ......................................
@@ -562,6 +546,17 @@ if [ ! -f ~/.fzf.zsh ]; then
 		~/.fzf/install
 	fi
 fi
+
+# TLDR .................................
+# ......................................
+if [ ! -f ~/.tldr ]; then
+	which tldr &> /dev/null
+	if [[ $? ]]; then
+		curl -o ~/.tldr https://raw.githubusercontent.com/raylee/tldr/master/tldr
+		chmod +x ~/.tldr
+	fi
+fi
+
 
 # ZPLUG ................................
 # ......................................

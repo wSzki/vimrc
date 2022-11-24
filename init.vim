@@ -131,6 +131,7 @@ nnoremap <leader>diff
 			\ :Gitsigns toggle_linehl<CR>
 			\ :Gitsigns toggle_numhl<CR>
 			\ :Gitsigns toggle_deleted<CR>
+			\ :Gitsigns blame_line<CR>
 			"\ :Gitsigns setqflist<CR>
 
 nnoremap <leader>qf :TroubleToggle<CR>
@@ -231,6 +232,29 @@ Plug 'L3MON4D3/LuaSnip'
 Plug 'rafamadriz/friendly-snippets'
 
 Plug 'VonHeikemen/lsp-zero.nvim'
+
+" ----------------------------------------------------------
+" -------------------------- COC ---------------------------
+" ----------------------------------------------------------
+
+Plug 'neoclide/coc.nvim', { 'branch' : 'release' }
+Plug 'honza/vim-snippets'
+"coc-diagnostic
+"coc-explorer
+"coc-clangd
+"coc-cmake
+"coc-fzf-preview
+"coc-sh
+"coc-snippets
+"coc-emmet
+"coc-css
+"coc-html
+"coc-html-css-support
+"coc-svg
+"coc-eslint
+"coc-tsserver
+"coc-json
+"coc-docker
 
 " ..........................................................
 " ......................... UTILS ..........................
@@ -509,6 +533,43 @@ hi cUserSpecialCharacter ctermfg=15 guifg=#D08770
 "hi CocExplorerSelectUI guibg=#EBCB8B guifg=black
 hi Pmenu guibg=#2A2E31
 
+" ==============================================================================
+" ------------------------------------ COC -------------------------------------
+" ==============================================================================
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+			\ coc#pum#visible() ? coc#pum#next(1):
+			\ CheckBackspace() ? "\<Tab>" :
+			\ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice.
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+			\: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+function! CheckBackspace() abort
+	let col = col('.') - 1
+	return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+"if has('nvim')
+"inoremap <silent><expr> <c-space> coc#refresh()
+"else
+"inoremap <silent><expr> <c-@> coc#refresh()
+"endif
+
+"runtime! plugin/supertab.vim
+"inoremap <s-tab>  <tab>
+nnoremap gd       :call       CocActionAsync('doHover')<CR>
+nnoremap gD       :call       CocActionAsync('jumpDefinition')<CR>
+nmap     <silent> <C-k>       <Plug>(coc-diagnostic-prev)
+nmap     <silent> <C-j>       <Plug>(coc-diagnostic-next)
+
+
 
 " ==============================================================================
 " ------------------------------------ LUA -------------------------------------
@@ -516,23 +577,23 @@ hi Pmenu guibg=#2A2E31
 lua << EOF
 
 --- LSP
-local lsp = require('lsp-zero')
-lsp.preset('recommended')
-
-lsp.setup_nvim_cmp({
-  preselect = 'none',
-  completion = {
-    completeopt = 'menu,menuone,noinsert,noselect'
-  },
-  sources = {
-    {name = 'path'},
-    {name = 'luasnip', keyword_length = 2},
-    {name = 'nvim_lsp', keyword_length = 3},
-    {name = 'buffer', keyword_length = 3},
-  }
-})
-
-lsp.setup()
+--local lsp = require('lsp-zero')
+--lsp.preset('recommended')
+--
+--lsp.setup_nvim_cmp({
+--  preselect = 'none',
+--  completion = {
+--    completeopt = 'menu,menuone,noinsert,noselect'
+--  },
+--  sources = {
+--    {name = 'path'},
+--    {name = 'luasnip', keyword_length = 2},
+--    {name = 'nvim_lsp', keyword_length = 3},
+--    {name = 'buffer', keyword_length = 3},
+--  }
+--})
+--
+--lsp.setup()
 
 --- NEOSCROLL
 require('neoscroll').setup{}

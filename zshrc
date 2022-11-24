@@ -14,22 +14,25 @@
 # ==============================================================================
 # ------------------------------------ CORE ------------------------------------
 # ==============================================================================
-
-# Startuptime measurments - uncomment zprof at EOF
-#zmodload zsh/zprof
+#
+#zmodload zsh/zprof # Startuptime measurments - uncomment zprof at EOF
 
 [ -f ~/.instant-zsh.zsh ]         && source ~/.instant-zsh.zsh && instant-zsh-pre "%5Fλ %8F~ %f"
 [ -f ~/.zplug/repos/rupa/z/z.sh ] && . ~/.zplug/repos/rupa/z/z.sh
 [ -f ~/.fzf.zsh ]                 && ~/.fzf.zsh
 
-# TMUX AUTOSTART
-# If not running interactively, do not do anything # Otherwise start tmux
-#[[ $- != *i* ]] && return ; [[ -z "$TMUX" ]] && exec tmux
-
 export DOTFILES=$HOME/.dot
 export BOX=$DOTFILES/box
 
-########################### PLUGINS ##################################
+ # ---------------------------------------------------------
+ # -------------------- TMUX AUTOSTART ---------------------
+ # ---------------------------------------------------------
+# If not running interactively, do not do anything # Otherwise start tmux
+#[[ $- != *i* ]] && return ; [[ -z "$TMUX" ]] && exec tmux
+
+# ----------------------------------------------------------
+# ------------------------ PLUGINS -------------------------
+# ----------------------------------------------------------
 
 if [ -d ~/.zplug ]; then
 
@@ -50,9 +53,9 @@ if [ -d ~/.zplug ]; then
 
 	zplug load #--verbose
 
-
-
-########################## SYNTAX HIGHLIGHTING #######################
+# ----------------------------------------------------------
+# ------------------ SYNTAX HIGHLIGHTING -------------------
+# ----------------------------------------------------------
 
 ZSH_HIGHLIGHT_STYLES[path]='fg=gray, italic'
 ZSH_HIGHLIGHT_STYLES[builtin]='fg=yellow, bold'
@@ -65,8 +68,9 @@ ZSH_HIGHLIGHT_STYLES[commandseparator]='fg=magenta'
 ZSH_HIGHLIGHT_STYLES[precommand]='fg=magenta'
 ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(buffer-empty)
 
-########################## SUBNIXR THEME SETTINGS ######################
-
+# ----------------------------------------------------------
+# ----------------- SUBNIXR THEME SETTINGS -----------------
+# ----------------------------------------------------------
 function nix_component {
 	if [[ $IN_NIX_SHELL ]]; then
 		echo ▪️;
@@ -79,7 +83,9 @@ MNML_INFOLN=()
 MNML_OK_COLOR=5
 MNML_ERR_COLOR=3
 
-########################### BINDKEYS #################################
+# ----------------------------------------------------------
+# ------------------------ BINDKEYS ------------------------
+# ----------------------------------------------------------
 
 bindkey    "^[[3~"          delete-char
 bindkey    "^[3;5~"         delete-char
@@ -93,15 +99,19 @@ bindkey    "^k" 			fzf-kill-proc-by-list
 # BREAKS FZF TAB
 #bindkey '^i' expand-or-complete-prefix # https://stackoverflow.com/questions/37772712/zsh-how-to-make-tab-completion-need-no-space-to-next-word-after-cursor
 
-####################### ZSH COMPLETION SUBSTRING #####################
+# ----------------------------------------------------------
+# ---------------- ZSH COMPLETION SUBSTRING ----------------
+# ----------------------------------------------------------
 
 zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
 zstyle ':completion:*' completer _complete
 zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' '+l:|=* r:|=*'
 autoload -Uz compinit
 compinit
-########################### SOURCE ###################################
 
+# ----------------------------------------------------------
+# ------------------------- SOURCE -------------------------
+# ----------------------------------------------------------
 # For ctrl+f and **
 source /usr/share/fzf/key-bindings.zsh
 source /usr/share/fzf/completion.zsh
@@ -111,13 +121,15 @@ source /usr/share/fzf/completion.zsh
 
 fi # END OF PLUGIN SCOPE
 
-######################## TMUX ###################################
-
+# ----------------------------------------------------------
+# -------------------------- TMUX --------------------------
+# ----------------------------------------------------------
 #if [ "$TMUX" = "" ]; then tmux; fi
 alias tmux="tmux attach-session || tmux"
 
-######################### HISTORY ###################################
-
+# ----------------------------------------------------------
+# ------------------------ HISTORY -------------------------
+# ----------------------------------------------------------
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
@@ -138,47 +150,34 @@ setopt AUTO_CD
 which nix &> /dev/null
 if [[ $? -eq 0 ]]; then
 
+# ----------------------------------------------------------
+# -------------------------- CORE --------------------------
+# ----------------------------------------------------------
 #export DOTFILES="$(echo $HOME/dotfiles | tr -d '\r')"
-function nix-clean { nix-store --gc            }
-function shell     { nix-shell -p   "$@"       }
-function lobster   { nix-env   -iA  nixpkgs.$1 }
+function nix-clean  { nix-store --gc                                  } # Cleans cache
+function shell      { nix-shell -p   "$@"                             } # Creates temp shell
+function lobster    { nix-env   -iA  nixpkgs.$1                       } # Installs package as regular bin
+function clam()     { ARGS=$@; shell $1 --run "$ARGS"                 } # Temp shell and execute
+function crab       { ARGS="${@:2}"; shell $1 --run "sh -c \"$ARGS\"" } # Temp shell and exec if bin has different name
 
-function node     { shell nodejs nodePackages.npm }
-
-function crab       { ARGS="${@:2}"; shell $1 --run "sh -c \"$ARGS\""}
-function so       { crab so                       "so  -e google $@" }
-function lnav     { crab lnav                     "lnav $@"          }
-function pip      { crab python310Packages.pip    "pip $@"           }
-function howdoi   { crab python310Packages.howdoi "howdoi $@"        }
-function npm      { crab nodePackages.npm         "npm $@"           }
-function yarn     { crab nodePackages.yarn        "yarn $@"          }
-function chromium { crab ungoogled-chromium       "chromium $@"      }
-function wtf      { crab wtf                      "wtfutil $@"       }
-function gping    { crab gping                    "gping $@"         }
-function hn       { crab haxor-news               "hn $@"            }
-function dockerd  { crab docker                   "sudo dockerd $@"  }
-function code     { crab vscodium                 "codium $@"        }
-function fltrdr   { crab fltrdr "fltrdr --config-base ~/.dot/config/fltrdr $@" }
-
-function docker {
-	if [[ "$1" == "reset" ]]; then
-		crab docker "echo '# DOCKER FACTORY RESET #'
-		docker kill      $(docker ps -q)
-		docker container prune       --force
-		docker image     prune --all --force
-		docker system    prune --all --force --volumes"
-	else;
-		crab docker "docker $@"
-	fi
-}
-
-#function docker { ARGS="$@"; shell docker                --run "sh -c \"docker $ARGS\"" }
-#function npm    { ARGS="$@"; shell nodePackages.npm      --run "sh -c \"npm $ARGS\""    }
-#function pip    { ARGS="$@"; shell python310Packages.pip --run "sh -c \"pip $ARGS\""    }
-#function lnav   { ARGS="$@"; shell lnav                  --run "sh -c \"lnav $ARGS\""     } # Stack
-
-function clam()     { ARGS=$@; shell $1 --run "$ARGS" }
-
+# ----------------------------------------------------------
+# -------------------------- PKGS --------------------------
+# ----------------------------------------------------------
+function node       { shell nodejs nodePackages.npm }
+function so         { crab so                       "so  -e google $@" }
+function lnav       { crab lnav                     "lnav $@"          }
+function pip        { crab python310Packages.pip    "pip $@"           }
+function howdoi     { crab python310Packages.howdoi "howdoi $@"        }
+function npm        { crab nodePackages.npm         "npm $@"           }
+function yarn       { crab nodePackages.yarn        "yarn $@"          }
+function chromium   { crab ungoogled-chromium       "chromium $@"      }
+function wtf        { crab wtf                      "wtfutil $@"       }
+function gping      { crab gping                    "gping $@"         }
+function hn         { crab haxor-news               "hn $@"            }
+function dockerd    { crab docker                   "sudo dockerd $@"  }
+function code       { crab vscodium                 "codium $@"        }
+function fltrdr     { crab fltrdr "fltrdr --config-base ~/.dot/config/fltrdr $@" }
+function mc         { clam matrix-commander --store ~/.config/matrix-commander/store $@ }
 function gotop      { clam gotop      $@ }
 function htop       { clam htop       $@ }
 function sysz       { clam sysz       $@ }
@@ -210,90 +209,52 @@ function uncrustify { clam uncrustify $@ }
 function lldb       { clam lldb       $@ }
 function gdb        { clam gdb        $@ }
 function scrcpy     { clam scrcpy     $@ }
-
-function browsh { shell browsh firefox --run browsh  }
-
-
-function mc         {  clam matrix-commander --store ~/.config/matrix-commander/store $@ }
-alias    chloe="mc -u ploupi -m"
-#function tuir       { cap tuir}
-
-function back {
-	CURRENT_DIR=$PWD
-	cd ~/.dot && git add . && git status && git commit -m Backup && git push
-	cp -r ~/.dot/config/nvim/* ~/.vimrc.git
-	cp ~/.dot/config/tmux/tmux.conf ~/.vimrc.git/
-	cp ~/.zshrc ~/.vimrc.git/zshrc
-	cd ~/.vimrc.git && git add . && git status && git commit -m Backup && git push
-	cd $CURRENT_DIR
-}
-
-function tdvk { tmux kill-session -t tidal }
-function tdv  { tmux kill-session -t tidal ; ~/.dot/tidal/tidal ~/.dot/tidal/main.tidal }
-function vcv  { export PIPEWIRE_LATENCY="2048/48000"; vcvrack }
+function browsh     { shell browsh firefox --run browsh  }
 
 
-function vimspector {
-	echo 'DO NOT FORGET TO COMPILE WITH -g'
-	echo 'Done.'
-	echo '
-	{
-		"configurations": {
-		"Launch": {
-		"adapter": "vscode-cpptools",
-		"configuration": {
-		"request": "launch",
-		"program": "./a.out",
-		"args": ["", ""],
-		"externalConsole": true
-	}
-}
-}
-}' > .vimspector.json
-}
-
-
-
-alias snippets="cd  ~/.config/coc/ultisnips/ && v"
-
-
-function nix-shell-init () {
+# ----------------------------------------------------------
+# --------------------- NIX SHELL INIT ---------------------
+# ----------------------------------------------------------
+function nix-shell-init ()
+{
 	VAR=$@
 	cp ~/.dot/config/nix/envrc ./.envrc
 	cp ~/.dot/config/nix/shell.nix ./
 	sed -i "s/ooo/${VAR}/g" ./shell.nix
 	direnv allow .
 }
+
+ # ---------------------------------------------------------
+ # ------------------------ DOCKER -------------------------
+ # ---------------------------------------------------------
+function docker {
+	if [[ "$1" == "reset" ]]; then
+		crab docker "echo '# DOCKER FACTORY RESET #'
+		docker kill      $(docker ps -q)
+		docker container prune       --force
+		docker image     prune --all --force
+		docker system    prune --all --force --volumes"
+	else;
+		crab docker "docker $@"
+	fi
+}
+
+
 #source ~/.config/zsh/zsh-nix-shell/nix-shell.plugin.zsh
 
-fi # END NIX
+fi ################################################################################# END NIX
 
-countdown() {
-	start="$(( $(date +%s) + $1))"
-	while [ "$start" -ge $(date +%s) ]; do
-		## Is this more than 24h away?
-		days="$(($(($(( $start - $(date +%s) )) * 1 )) / 86400))"
-		time="$(( $start - `date +%s` ))"
-		printf '%s day(s) and %s\r' "$days" "$(date -u -d "@$time" +%H:%M:%S)"
-		sleep 0.1
-	done
-}
+alias    chloe="mc -u ploupi -m"
+function tdvk { tmux kill-session -t tidal }
+function tdv  { tmux kill-session -t tidal ; ~/.dot/tidal/tidal ~/.dot/tidal/main.tidal }
+function vcv  { export PIPEWIRE_LATENCY="2048/48000"; vcvrack }
 
-stopwatch() {
-	start=$(date +%s)
-	while true; do
-		days="$(($(( $(date +%s) - $start )) / 86400))"
-		time="$(( $(date +%s) - $start ))"
-		printf '%s day(s) and %s\r' "$days" "$(date -u -d "@$time" +%H:%M:%S)"
-		sleep 0.1
-	done
-}
+
 
 # ==============================================================================
 # ---------------------------------- ALIASES -----------------------------------
 # ==============================================================================
-alias yay="pikaur"
-alias paru="pikaur"
+alias yay="pikaur" && alias paru="pikaur"
 alias tlprc="sudo vim ~/.dot/sys/tlp.conf"
 #alias vrc="cd ~/.config/nvim  && vim -c 'CocCommand explorer --toggle' plug.vim && cd -"
 alias vrc="cd ~/.config/nvim  && vim init.vim && cd -"
@@ -337,7 +298,6 @@ alias tidal="~/.dot/box/tidal/bin/tidal"
 
 FILE="/etc/passwd"
 if [ -f /bin/nvim ];then alias vim="nvim" ; else alias vim="vim -u NONE"; fi
-alias ok="nvim"
 
 ########################### FASD ###############################
 
@@ -420,13 +380,6 @@ alias uxn="cd ~/.uxn"
 alias gcl="git clone"
 alias glo="fzf-git-log"
 alias gst="fzf-git-status"
-function gch {
-	if [[ $1 == "" ]]; then
-		fzf-git-checkout
-	else
-		git checkout $1
-	fi
-}
 
 
 ### SSH
@@ -491,250 +444,118 @@ alias kk="k -Ah"
 alias ls="k -h"
 alias l="k -h"
 alias lsa="k -hA --sort WORD"
-
-########################################################################
-############################### TRASH ##################################
-########################################################################
-
-## DOCKER
-#alias docker_start="sudo systemctl start docker.service"
-#alias docker_stop="sudo systemctl stop docker.service"
-#alias ,dpc="docker container prune"
-#alias ,dlsi="docker images"
-#alias ,dlsc="docker container list"
-#alias ,drun="docker run -it"
-#alias ,dbuild="docker build -t tmp_name ./"
 alias todo="vim ~/.dot/box/todo/todo.md"
-
-### C
-#alias gcc="clang"
-#alias gccc="gcc -Wall -Werror -Wextra"
-#alias clangc="gcc -Wall -Werror -Wextra"
-#alias gccf="gcc -g -fsanitize=address -Wall -Werror -Wextra"
-#alias clangf="gcc -g -fsanitize=address -Wall -Werror -Wextra"
-##alias norminette="~/.norminette/norminette.rb"
-#alias norme="norminette -R CheckForbiddenSourceHeader"
-#alias grademe="~/42/Libftest/grademe.sh -n"
-#alias deepthought="vim ~/42/Libftest/deepthought"
-#alias gnl="cd ~/42/gnl"
-#alias bundle="~/.gem/ruby/2.7.0/bin/bundle"
-#alias ftsrv="cd ~/42/ft_server"
-#alias ddbuild="docker build -t server . && docker create -it server /bin/bash &&  "
-#### TASK
-#alias ,t="task"
-#alias t="clear & task summary ; task list rc.dateformat=a_d/m_H:N ; task calendar "
-#alias ,tdt="task due:tomorrowT12:00"
-#alias ,tdl="task delete"
-#alias ,tadd="task add"
-#alias ddd="cd ~/42/cub3d"
-
-### CUB3D
-#alias man_mlx="man /usr/local/man/man3/mlx.1"
-#alias man_mlx_loop="man /usr/local/man/man3/mlx_loop.1"
-#alias man_mlx_new_image="man /usr/local/man/man3/mlx_new_image.1"
-#alias man_mlx_pixel="man /usr/local/man/man3/mlx_pixel_put.1"
-#alias man_mlx_window="man /usr/local/man/man3/mlx_new_window.1"
-#alias c3d="cd ~/42/cub3d"
-#alias gcc_mlx="gcc -I /usr/local/include/  main.c -L /usr/local/lib/ -lXext -lX11 -lmlx"
-## task add Pay rent due:28th recur:monthly until:now+1yr
-
-
-## SERVER
-#alias server-start="sudo systemctl start mariadb.service; sudo systemctl start httpd.service"
-#alias server-stop="sudo systemctl stop mariadb.service; sudo systemctl stop httpd.service"
-#alias server-restart="sudo systemctl restart mariadb.service; sudo systemctl restart httpd.service"
-
-
-### MPV
-#alias mpyt="mpv --playlist=/home/wsz/.playlist --shuffle --no-video"
-#alias mpsyt="~/.local/bin/mpsyt"
-
-### YOUTUBLE DL
-#
-#alias youtube-dl-mp3="youtube-dl --extract-audio --audio-format mp3     "
-#alias ytdlm="cdyt; youtube-dl -x --audio-format wav"
-#alias dddl="cdyt; youtube-dl -xi --audio-format wav"
-alias dddlhere="youtube-dl -xi --audio-format wav"
-#alias ddlddl="cdyt; youtube-dl -xi --audio-format wav --no-playlist"
-alias youtube-dl-wav="youtube-dl -xo '%(title)s.%(ext)s' --audio-format wav"
-#alias youtube-dl-playlist="youtube-dl -a playlist -xo '%(title)s.%(ext)s' --audio-format wav"
-
-function dl () {
-	if [[ "$1" == "audio" ]]; then
-		yt-dlp -xo '%(title)s.%(ext)s' --embed-thumbnail --audio-format mp3 $2;
-	fi;
-}
-
-### RM LOCK
-#alias rm="rm -i"
-
-## DATABASE
-#alias maria="sudo mariadb"
-#alias portinfo="sudo nmap -n -PN -sT -sU -p- localhost"
-
-### CCAT
-#alias cat="/bin/ccat --color=always"
-#alias catc="/bin/ccat --color=always"
-
-### GDB TUI
-#alias db="gdb -tui -q"
-#alias gdb="gdb -q"
-
-
-
-### XCLIP
-#alias pbc="xclip -selection clipboard"
-#alias pbp="xclip -selection clipboard -o"
-
-#alias f="fzf -e --preview='cat {}'  --preview-window=right:50%:wrap"
-#alias a="ack --color-match=yellow --color-lineno=magenta --color-filename=blue"
-#
-#
-#
-#
-#
-#
-#
-#alias is="vim ~/Tree/Suckless/installScript/installScript.sh"
-#alias edp_1="xrandr --output eDP-1 --primary --mode 1920x1080 --pos 0x0 --rotate normal --output DP-1 --off --output HDMI-1 --off --output DP-2 --off --output HDMI-2 --off --output DP-2-1 --off --output DP-2-2 --off --output DP-2-3 --off"
-#alias hdmion="xrandr --output HDMI-2 --auto --above eDP-1"
-#alias hdmioff="xrandr --output HDMI-2 --off"
-#alias docked-1=" xrandr --output eDP-1 --primary --mode 1920x1080 --pos 773x1440 --rotate normal --output DP-1 --off --output HDMI-1 --off --output DP-2 --off --output HDMI-2 --off --output DP-2-1 --mode 2560x1440 --pos 1800x0 --rotate normal --output DP-2-2 --off --output DP-2-3 --mode 1440x900 --pos 0x315 --rotate normal; xrandr --output DP-2-3"
-##alias docked-1=" xrandr --output eDP-1 --primary --mode 1920x1080 --pos 773x1440 --rotate normal --output DP-1 --off --output HDMI-1 --off --output DP-2 --off --output HDMI-2 --off --output DP-2-1 --mode 2560x1440 --pos 1800x0 --rotate normal --output DP-2-2 --off --output DP-2-3 --mode 1440x900 --pos 0x315 --rotate normal; xrandr --output DP-2-3 --scale 1.25x1.25 "
-##alias docked-1="xrandr --output DP-2-3 --scale 1.25x1.25 ; xrandr --output eDP-1 --primary --mode 1920x1080 --pos 773x1440 --rotate normal --output DP-1 --off --output HDMI-1 --off --output DP-2 --off --output HDMI-2 --off --output DP-2-1 --mode 2560x1440 --pos 1800x0 --rotate normal --output DP-2-2 --off --output DP-2-3 --mode 1440x900 --pos 0x315 --rotate normal; "
-##alias docked-1="edp_1 ; xrandr --output eDP-1 --primary --mode 1920x1080 --pos 1253x1440 --rotate normal --output DP-1 --off --output HDMI-1 --off --output DP-2 --off --output HDMI-2 --off --output DP-2-1 --mode 2560x1440 --pos 1920x0 --rotate normal --output DP-2-2 --off --output DP-2-3 --mode 1440x900 --pos 480x540 --rotate normal"
-#alias docked-1="edp_1 && xrandr --output eDP-1 --primary --mode 1920x1080 --pos 1280x1440 --rotate normal --output DP-1 --off --output HDMI-1 --off --output DP-2 --off --output HDMI-2 --off --output DP-2-1 --mode 2560x1440 --pos 1280x0 --rotate normal --output DP-2-2 --mode 1280x1024 --pos 0x584 --rotate normal --output DP-2-3 --off"
-#alias vga-1h="xrandr --output eDP-1 --primary --mode 1920x1080 --pos 0x1080 --rotate normal --output DP-1 --mode 1920x1080 --pos 0x0 --rotate normal --output HDMI-1 --off --output DP-2 --off --output HDMI-2 --off"
-#alias vga-1v="xrandr --output eDP-1 --primary --mode 1920x1080 --pos 0x1920 --rotate normal --output DP-1 --mode 1920x1080 --pos 840x0 --rotate left --output HDMI-1 --off --output DP-2 --off --output HDMI-2 --off"
-#alias vga-off="xrandr --output DP-1 --off"
-#alias dualon="xrandr --output eDP-1 --primary --mode 1920x1080 --pos 2025x1440 --rotate normal --output DP-1 --mode 1920x1080 --pos 1060x360 --rotate normal --output HDMI-1 --off --output DP-2 --off --output HDMI-2 --mode 2560x1440 --pos 2980x0 --rotate normal"
-#alias dualon2="xrandr --output eDP-1 --primary --mode 1920x1080 --pos 366x1920 --rotate normal --output DP-1 --mode 1920x1080 --pos 0x0 --rotate left --output HDMI-1 --off --output DP-2 --off --output HDMI-2 --mode 2560x1440 --pos 1080x480 --rotate normal"
-#alias toweron1="xrandr --output eDP-1 --primary --mode 1920x1080 --pos 1080x1440 --rotate normal --output DP-1 --mode 1920x1080 --pos 0x0 --rotate left --output HDMI-1 --off --output DP-2 --off --output HDMI-2 --mode 2560x1440 --pos 1080x0 --rotate normal"
-#alias towerson="xrandr --output eDP-1 --primary --mode 1920x1080 --pos 1080x2560 --rotate normal --output DP-1 --mode 1920x1080 --pos 0x1254 --rotate left --output HDMI-1 --off --output DP-2 --off --output HDMI-2 --mode 2560x1440 --pos 1080x0 --rotate left"
-#alias ethernet="sudo systemctl start dhcpcd@enp0s31f6"
-##alias vcv="cd ~/Tree/Rack/ && ./Rack"
-#alias persist="nohup"
-#alias showssh="cat ~/.ssh/id_rsa.pub"
-#alias yank="xclip -sel clip"
-## xinput --list | grep TouchPad
-## TID=$(xinput list | grep -iPo 'touchpad.*id=\K\d+')
 alias touchpad_restart="xinput disable 11 && xinput enable 11"
-
-
-
-######  SERVICES
-###     WIFI
-#alias ip-info="ifconfig | grep \"inet \" | grep -v 127.0.0.1"
-#alias wifi-auto-on="sudo systemctl enable netctl-auto@wlan0.service && sudo systemctl start netctl-auto@wlan0.service"
-#alias wifi-auto-off="sudo systemctl disable netctl-auto@wlan0.service && sudo systemctl stop netctl-auto@wlan0.service"
-#alias wifi="sudo wifi-menu"
-#alias nmap-local="sudo nmap -sn 192.168.0.0/24"
-#alias wifi-restart="sudo systemctl restart netctl-auto@wlan0.service"
-#alias wifi_on="nmcli radio wifi on"
-#alias wifi_off="nmcli radio wifi off"
-
-#alias p="ping google.fr"
-
-###     BLUETOOTH
-#alias bluestart="sudo systemctl enable bluetooth.service && sudo systemctl start bluetooth.service"
-#alias bluestop="sudo systemctl disable bluetooth.service && sudo systemctl stop bluetooth.service"
-
-
-###     LOGIND.CONF
-#alias nosleep="sudo vim /etc/systemd/logind.conf"
-
-###     SLEEP
-#alias sleep-off="sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target"
-#alias sleep-on="sudo systemctl unmask sleep.target suspend.target hibernate.target hybrid-sleep.target"
-
-###     BATTERY
-#alias battery-monitor="udevadm monitor --property"
-
 ###		AUDIO
 #alias glitchout="aplay /bin/*"
 
+# ==============================================================================
+# --------------------------------- FUNCTIONS ----------------------------------
+# ==============================================================================
+
+# BACKUP ...............................
+# ......................................
+function back {
+	CURRENT_DIR=$PWD
+	cd ~/.dot && git add . && git status && git commit -m Backup && git push
+	cp -r ~/.dot/config/nvim/* ~/.vimrc.git
+	cp ~/.dot/config/tmux/tmux.conf ~/.vimrc.git/
+	cp ~/.zshrc ~/.vimrc.git/zshrc
+	cd ~/.vimrc.git && git add . && git status && git commit -m Backup && git push
+	cd $CURRENT_DIR
+}
+
+# GIT ..................................
+# ......................................
+function gch {
+	if [[ $1 == "" ]]; then
+		fzf-git-checkout
+	else
+		git checkout $1
+	fi
+}
+
+# VIMSPECTOR GENERATE FILE .............
+# ......................................
+function vimspector {
+	echo 'DO NOT FORGET TO COMPILE WITH -g'
+	echo 'Done.'
+	echo '
+	{
+		"configurations": {
+		"Launch": {
+		"adapter": "vscode-cpptools",
+		"configuration": {
+		"request": "launch",
+		"program": "./a.out",
+		"args": ["", ""],
+		"externalConsole": true
+	}
+}
+}
+}' > .vimspector.json
+}
 
 
-#####################################################################################
+# YOUTUBE DL ...........................
+# ......................................
+function dl () {
+	if [[ "$1" == "mp3" ]]; then
+		yt-dlp -xo '%(title)s.%(ext)s' --embed-thumbnail --audio-format mp3 $2;
+	if [[ "$1" == "wav" ]]; then
+		yt-dlp -xo '%(title)s.%(ext)s' --embed-thumbnail --audio-format wav $2;
+	fi;
+}
 
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
+# COUNTDOWN ............................
+# ......................................
+alias snippets="cd  ~/.config/coc/ultisnips/ && v"
+countdown() {
+	start="$(( $(date +%s) + $1))"
+	while [ "$start" -ge $(date +%s) ]; do
+		## Is this more than 24h away?
+		days="$(($(($(( $start - $(date +%s) )) * 1 )) / 86400))"
+		time="$(( $start - `date +%s` ))"
+		printf '%s day(s) and %s\r' "$days" "$(date -u -d "@$time" +%H:%M:%S)"
+		sleep 0.1
+	done
+}
 
-# Uncomment the following line to use hyphen-insensitive completion.
-# Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
+# TIMER ................................
+# ......................................
+stopwatch() {
+	start=$(date +%s)
+	while true; do
+		days="$(($(( $(date +%s) - $start )) / 86400))"
+		time="$(( $(date +%s) - $start ))"
+		printf '%s day(s) and %s\r' "$days" "$(date -u -d "@$time" +%H:%M:%S)"
+		sleep 0.1
+	done
+}
 
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment the following line to automatically update without prompting.
-#DISABLE_UPDATE_PROMPT="true"
-
-# Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
-
-# Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS=true
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-#ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# You can set one of the optional three formats:
-# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# or set a custom format using the strftime function format specifications,
-# see 'man strftime' for details.
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-# User configuration
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-
+# ==============================================================================
+# ---------------------------------- CORE END ----------------------------------
+# ==============================================================================
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
 [ -f "/home/wsz/.ghcup/env" ] && source "/home/wsz/.ghcup/env" # ghcup-env
-
-
 if type direnv > /dev/null; then eval "$(direnv hook zsh)"; fi
 
-# ASYNC START
+# ----------------------------------------------------------
+# ---------------------- AUTOINSTALL -----------------------
+# ----------------------------------------------------------
+
+# ASYNC START ..........................
+# ......................................
 if [ ! -f ~/.instant-zsh.zsh ]; then
 	curl -fsSL -o ~/.instant-zsh.zsh https://gist.github.com/romkatv/8b318a610dc302bdbe1487bb1847ad99/raw
 	source ~/.instant-zsh.zsh
 	instant-zsh-pre "%5Fλ %8F~ %f"
 fi
 
-# FZF
+# FZF ..................................
+# ......................................
 if [ ! -f ~/.fzf.zsh ]; then
 	if [ ! -f /usr/bin/fzf ]; then
 		git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf/
@@ -742,7 +563,8 @@ if [ ! -f ~/.fzf.zsh ]; then
 	fi
 fi
 
-# ZPLUG install
+# ZPLUG ................................
+# ......................................
 if [ ! -d ~/.zplug ]; then
 	curl -sL --proto-redir -all,https \
 		https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
@@ -750,8 +572,20 @@ if [ ! -d ~/.zplug ]; then
 			exec zsh
 fi
 
-stty -ixon # disables ctrl+s
-instant-zsh-post
-#zprof
+# ----------------------------------------------------------
+# -------------------------- MISC --------------------------
+# ----------------------------------------------------------
+stty -ixon       # disables ctrl+s
+instant-zsh-post # faster zsh startup
+#zprof           # Evaluate zsh startup time
+
+# ----------------------------------------------------------
+# ------------------------ INCLUDES ------------------------
+# ----------------------------------------------------------
 export CPATH=$CPATH:/home/wsz/irc/includes/
 export CPATH=$CPATH:/home/wsz/irc/includes/numericReplies
+
+
+
+
+

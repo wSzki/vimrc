@@ -453,7 +453,7 @@ function back {
 # ......................................
 function gch {
 	if [[ $1 == "" ]]; then
-		fzf-git-checkout
+		fzf-git-checkout 2> /dev/null
 	else
 		git checkout $1
 	fi
@@ -489,6 +489,7 @@ function dl () {
 		if [[ "$1" == "wav" ]]; then
 			yt-dlp -xo '%(title)s.%(ext)s' --embed-thumbnail --audio-format wav $2;
 		fi;
+	fi:
 	}
 
 # COUNTDOWN ............................

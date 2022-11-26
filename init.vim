@@ -29,6 +29,8 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 	autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
+command! PYN echo
+
 " True Color settings
 """"""""""""""""""""""
 if has('termguicolors')
@@ -137,6 +139,8 @@ nnoremap <leader>diff
 nnoremap <leader>qf :TroubleToggle<CR>
 
 nnoremap <leader>vi :Vista<CR>
+nnoremap <leader>git :!git status<CR>
+
 
 noremap <leader>c1 :CommentBanner --pattern =,1-,=  --width 80 --comment true<CR>
 noremap <leader>c2 :CommentBanner --pattern -,1-,-  --width 60 --comment true<CR>

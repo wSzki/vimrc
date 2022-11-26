@@ -489,7 +489,7 @@ function dl () {
 		if [[ "$1" == "wav" ]]; then
 			yt-dlp -xo '%(title)s.%(ext)s' --embed-thumbnail --audio-format wav $2;
 		fi;
-	fi:
+	fi;
 	}
 
 # COUNTDOWN ............................

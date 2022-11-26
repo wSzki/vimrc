@@ -1,0 +1,14 @@
+
+if empty(glob('~/.vim/autoload/plug.vim'))
+	silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+				\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+
+call plug#begin('~/.vim/plugged')
+lug 'neoclide/coc.nvim', { 'branch' : 'release' }
+Plug 'honza/vim-snippets'
+Plug 'rafamadriz/friendly-snippets'
+call plug#end()
+

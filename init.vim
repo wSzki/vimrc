@@ -324,13 +324,14 @@ Plug 'neovimhaskell/haskell-vim', { 'for': 'tidal'},
 Plug 'LnL7/vim-nix'
 Plug 'mboughaba/i3config.vim',           { 'for' : 'i3config'                          } " for is broken
 Plug 'plasticboy/vim-markdown',          { 'for' : 'markdown'                          } " for is broken
-Plug 'leafgarland/typescript-vim',       { 'for' :  ['jsx','tsx']                      } " TypeScript syntax
-Plug 'pangloss/vim-javascript',          { 'for' : 'jsx'                               } " JavaScript support
-Plug 'maxmellon/vim-jsx-pretty',         { 'for' : 'jsx'                               } " JS and JSX syntax
-Plug 'jparise/vim-graphql',              { 'for' : 'jsx'                               } " GraphQL syntax
-Plug 'bfrg/vim-cpp-modern',              { 'for' : ['c','cpp', 'hpp']                  } " for is broken
+"Plug 'leafgarland/typescript-vim',       { 'for' :  ['jsx','tsx']                      } " TypeScript syntax
+"Plug 'ianks/vim-tsx'
+"Plug 'pangloss/vim-javascript',          { 'for' : ['jsx','tsx']                                } " JavaScript support
+"Plug 'maxmellon/vim-jsx-pretty',         { 'for' : ['jsx','tsx']                                } " JS and JSX syntax
+"Plug 'jparise/vim-graphql',              { 'for' : ['jsx','tsx']                                } " GraphQL syntax
+"Plug 'bfrg/vim-cpp-modern',              { 'for' : ['c','cpp', 'hpp']                  } " for is broken
 Plug 'vim-scripts/a.vim',                { 'for' : ['c', 'cpp', 'hpp']                 } " :A to switch to header file
-Plug 'jackguo380/vim-lsp-cxx-highlight', { 'for' : ['c','cpp', 'hpp']                  }
+"Plug 'jackguo380/vim-lsp-cxx-highlight', { 'for' : ['c','cpp', 'hpp']                  }
 Plug 'liuchengxu/vista.vim',             { 'for' : ['c', 'cpp', 'hpp'], 'on' : 'Vista' }
 Plug 'tyru/open-browser.vim',            { 'for' : ['c', 'cpp', 'hpp']                 }
 
@@ -538,6 +539,9 @@ hi cUserSpecialCharacter ctermfg=15 guifg=#D08770
 "hi CocExplorerNormalFloat guibg=#272B34
 "hi CocExplorerSelectUI guibg=#EBCB8B guifg=black
 hi Pmenu guibg=#2A2E31
+hi NeoTreeNormal guibg=#000
+hi NeoTreeEndOfBuffer guibg=#000
+"hi NeoTreeNormalNC guibg=#000
 
 " ==============================================================================
 " ------------------------------------ COC -------------------------------------
@@ -671,5 +675,7 @@ vim.lsp.diagnostic.on_publish_diagnostics,
 	signs = true
 }
 )
+
+
 
 EOF

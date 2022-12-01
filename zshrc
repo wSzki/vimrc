@@ -44,6 +44,7 @@ if [ -d ~/.zplug ]; then
 	zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 	zplug "zsh-users/zsh-syntax-highlighting", defer:2
 	zplug "zsh-users/zsh-autosuggestions"
+	#zplug "marlonrichert/zsh-autocomplete"
 	zplug "subnixr/minimal"
 	zplug "chisui/zsh-nix-shell"
 	zplug "spwhitt/nix-zsh-completions"

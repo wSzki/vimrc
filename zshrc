@@ -28,7 +28,7 @@ export BOX=$DOTFILES/box
  # -------------------- TMUX AUTOSTART ---------------------
  # ---------------------------------------------------------
  # If not running interactively, do not do anything # Otherwise start tmux
- #[[ $- != *i* ]] && return ; [[ -z "$TMUX" ]] && exec tmux
+ [[ $- != *i* ]] && return ; [[ -z "$TMUX" ]] && exec tmux
 
 # ----------------------------------------------------------
 # ------------------------ PLUGINS -------------------------

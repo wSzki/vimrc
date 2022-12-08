@@ -28,7 +28,7 @@ export BOX=$DOTFILES/box
  # -------------------- TMUX AUTOSTART ---------------------
  # ---------------------------------------------------------
  # If not running interactively, do not do anything # Otherwise start tmux
- [[ $- != *i* ]] && return ; [[ -z "$TMUX" ]] && exec tmux
+ #[[ $- != *i* ]] && return ; [[ -z "$TMUX" ]] && exec tmux
 
 # ----------------------------------------------------------
 # ------------------------ PLUGINS -------------------------
@@ -164,7 +164,7 @@ function crab       { ARGS="${@:2}"; shell $1 --run "sh -c \"$ARGS\"" } # Temp s
 # ----------------------------------------------------------
 # -------------------------- PKGS --------------------------
 # ----------------------------------------------------------
-function node       { shell nodejs nodePackages.npm }
+#function node       { shell nodejs nodePackages.npm }
 function so         { crab so                       "so  -e google $@" }
 function lnav       { crab lnav                     "lnav $@"          }
 function pip        { crab python310Packages.pip    "pip $@"           }

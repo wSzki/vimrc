@@ -105,7 +105,7 @@ augroup END
 set encoding=utf-8
 set complete-=5
 set lazyredraw
-set re=1
+"set re=1 // BREAKS TSX
 "set redrawtime=100
 "set timeoutlen=1000 " slows down whichkey
 set synmaxcol=400
@@ -209,8 +209,8 @@ call plug#begin('~/.vim/plugged')
 " ..........................................................
 " ........................ TESTING .........................
 " ..........................................................
-Plug 'iamcco/mathjax-support-for-mkdp'
-Plug 'iamcco/markdown-preview.vim'
+"Plug 'iamcco/mathjax-support-for-mkdp'
+"Plug 'iamcco/markdown-preview.vim'
 " ..........................................................
 " ......................... THEMES .........................
 " ..........................................................
@@ -221,23 +221,23 @@ Plug 'sainnhe/gruvbox-material'
 " .......................... LSP ...........................
 " ..........................................................
 " LSP Support
-Plug 'neovim/nvim-lspconfig'
-Plug 'williamboman/mason.nvim'           ,{'on' : 'Mason'}
-Plug 'williamboman/mason-lspconfig.nvim' ,{'on' : 'Mason'}
+"Plug 'neovim/nvim-lspconfig'
+"Plug 'williamboman/mason.nvim'           ,{'on' : 'Mason'}
+"Plug 'williamboman/mason-lspconfig.nvim' ,{'on' : 'Mason'}
 
-" Autocompletion
-Plug 'hrsh7th/nvim-cmp'
-Plug 'hrsh7th/cmp-buffer'
-Plug 'hrsh7th/cmp-path'
-Plug 'hrsh7th/cmp-nvim-lsp'
-Plug 'hrsh7th/cmp-nvim-lua'
-Plug 'saadparwaiz1/cmp_luasnip'
+"" Autocompletion
+"Plug 'hrsh7th/nvim-cmp'
+"Plug 'hrsh7th/cmp-buffer'
+"Plug 'hrsh7th/cmp-path'
+"Plug 'hrsh7th/cmp-nvim-lsp'
+"Plug 'hrsh7th/cmp-nvim-lua'
+"Plug 'saadparwaiz1/cmp_luasnip'
 
-"  Snippets
-Plug 'L3MON4D3/LuaSnip'
-Plug 'rafamadriz/friendly-snippets'
+""  Snippets
+"Plug 'L3MON4D3/LuaSnip'
+"Plug 'rafamadriz/friendly-snippets'
 
-Plug 'VonHeikemen/lsp-zero.nvim'
+"Plug 'VonHeikemen/lsp-zero.nvim'
 
 " ----------------------------------------------------------
 " -------------------------- COC ---------------------------
@@ -327,7 +327,7 @@ Plug 'plasticboy/vim-markdown',          { 'for' : 'markdown'                   
 "Plug 'leafgarland/typescript-vim',       { 'for' :  ['jsx','tsx']                      } " TypeScript syntax
 "Plug 'ianks/vim-tsx'
 "Plug 'pangloss/vim-javascript',          { 'for' : ['jsx','tsx']                                } " JavaScript support
-"Plug 'maxmellon/vim-jsx-pretty',         { 'for' : ['jsx','tsx']                                } " JS and JSX syntax
+Plug 'maxmellon/vim-jsx-pretty',         { 'for' : ['jsx','tsx']                                } " JS and JSX syntax
 "Plug 'jparise/vim-graphql',              { 'for' : ['jsx','tsx']                                } " GraphQL syntax
 "Plug 'bfrg/vim-cpp-modern',              { 'for' : ['c','cpp', 'hpp']                  } " for is broken
 Plug 'vim-scripts/a.vim',                { 'for' : ['c', 'cpp', 'hpp']                 } " :A to switch to header file
@@ -602,7 +602,7 @@ lua << EOF
 --    {name = 'buffer', keyword_length = 3},
 --  }
 --})
---
+
 --lsp.setup()
 
 --- NEOSCROLL

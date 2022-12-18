@@ -1,0 +1,226 @@
+
+# IMPORTS ################################
+
+snippet \iRouter "Description" A
+import { useLocation, Routes, Route } from "react-router-dom";
+endsnippet
+
+snippet \iLink "Description" A
+import { Link } from 'react-router-dom'
+endsnippet
+
+snippet \ireact "Description" A
+import React, { useState, useRef, useEffect } from 'react';
+endsnippet
+
+snippet \iuseState "Description" A
+import React, { useState, useRef, useEffect } from 'react';
+endsnippet
+
+snippet \iuseRef "Description" A
+import React, { useState, useRef, useEffect } from 'react';
+endsnippet
+
+snippet \iuseEffect "Description" A
+import React, { useState, useRef, useEffect } from 'react';
+endsnippet
+
+snippet \iframer "Description" A
+import {AnimatePresence, motion} from 'framer-motion'
+endsnippet
+
+snippet \iMeta "Description" A
+import {Helmet} from "react-helmet";
+endsnippet
+
+snippet \iMedia "Description" A
+import {useMediaQuery} from 'react-responsive';
+endsnippet
+
+# PROPS ################################################
+
+snippet \style "Description" A
+style = {{$1 : $2}}
+endsnippet
+
+snippet \{} "Description" A
+$1 = {$1}
+endsnippet
+
+snippet \class "" A
+className = {`$1`}
+endsnippet
+
+# STATE, REF, EFFECT ###################################
+
+snippet \useState "Description" A
+const [$1, set$1] = useState();
+endsnippet
+
+snippet \useRef "description" A
+const $1 = useref();
+endsnippet
+
+snippet \useEffect "Description" A
+useEffect(() => {
+		$1
+		})
+endsnippet
+
+
+# GLOBAL ############################################
+
+
+snippet \D "Description" A
+<D C={`$1`} S={{}}>
+</D>
+endsnippet
+
+snippet \const "Description" A
+const $1 = () => {
+	return (
+			<>
+			</>
+		   );
+};
+endsnippet
+
+snippet \media "Description" A
+const isMobile  = useMediaQuery({ query: '(max-width: 800px)'})
+const isDesktop = useMediaQuery({ query: '(min-width: 801px)'})
+endsnippet
+
+snippet \exp "Description" A
+export default $1
+endsnippet
+
+
+snippet \log "Description" A
+console.log($1);
+endsnippet
+
+snippet \com "Description" A
+{/*$1*/}
+endsnippet
+
+
+snippet \meta "Description" A
+<Helmet>
+
+<title>Example Title</title>
+<meta name="title" content="Example Title">
+<meta name="description" content="Example Description">
+<meta name="keywords" content="Example Keywords">
+<meta name="author" content="Example Author">
+
+<meta property="og:title" content="Example Title">
+<meta property="og:description" content="Example Description">
+<meta property="og:image" content="https://example.com/image.jpg">
+<meta property="og:site_name" content="Example Site Name">
+<meta property="og:type" content="website">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="https://example.com">
+<meta name="twitter:title" content="Example Title">
+<meta name="twitter:description" content="Example Description">
+<meta name="twitter:image" content="https://example.com/image.jpg">
+<link rel="icon" href="./favicon.ico" />
+<link rel="manifest" href="./manifest.json" />
+<link rel="icon" sizes="192x192" href="./icon-192.png" />
+<link rel="icon" sizes="512x512" href="./icon-512.png" />
+
+</Helmet>
+
+endsnippet
+
+
+
+
+# ARCHIVE ###########################################
+
+snippet \map "Description" A
+{
+	$1.map ((e) =>
+			<>
+			</>
+		   )
+};
+endsnippet
+
+
+
+snippet \mapExample "Description" A
+return (
+		backEndData.map ((e) =>
+			<div className="absolute flex w100 h50 center" key={e.id} style={{overflow: 'hidden'}}>
+			<img
+			className={`
+			fill none
+			{doo(e.id, props.currentImg, props.lastImg)}
+			`}
+			style={{objectFit: 'contain', overflow: 'hidden'}}
+			key={e.id}
+			src={e.src}
+			alt={e.alt}
+			/>
+			</div>
+			)
+	   );
+endsnippet
+
+snippet forExample "Description" A
+const ImgData = (props) => {
+
+	const imgArray = [];
+	for (let i = 1; i < 5; i++)
+	{
+		imgArray.push (
+				<div
+				key={i}
+				className="absolute flex w100 h50 center"
+				style={{
+overflow: 'hidden',
+userSelect:'none'
+}}
+>
+<img
+className={`
+fill none
+${slide(i, props.currentImg, props.lastImg)}
+`}
+style={{objectFit: 'contain', overflow: 'hidden'}}
+key={i}
+src={backEndData.adidas.images[i][0]}
+alt={backEndData.adidas.images[i][1]}
+loading="lazy"
+/>
+</div>
+		);
+		}
+return ( imgArray );
+};
+endsnippet
+
+snippet \dbt "Description" A
+$1:	{
+id           : 0,
+			 date         : '',
+			 description  : '',
+			 iDescription : '',
+			 category     : '',
+			 text         : [
+				 '',
+			 '',
+			 '',
+			 '',
+			 ],
+			 images       : [
+				 ['', ''],
+				 ['', ''],
+				 ['', ''],
+				 ['', ''],
+				 ['', ''],
+				 ['', ''],
+			 ],
+}
+endsnippet

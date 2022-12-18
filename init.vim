@@ -151,7 +151,8 @@ noremap <leader>c5 :CommentBanner --pattern -,1,2,- -1 align:left -2 align:left 
 
 nnoremap <leader>co :ColorizerToggle<CR>
 
-nnoremap <C-p> :NeoTreeFocusToggle<CR>
+"nnoremap <C-p> :NeoTreeFocusToggle<CR>
+nnoremap <C-p> :CocCommand explorer<CR>
 
 "nnoremap <leader>ff <cmd>Telescope find_files<cr>
 "nnoremap <leader>fg <cmd>Telescope live_grep<cr>
@@ -244,7 +245,7 @@ Plug 'sainnhe/gruvbox-material'
 " ----------------------------------------------------------
 
 Plug 'neoclide/coc.nvim', { 'branch' : 'release' }
-Plug 'honza/vim-snippets'
+"Plug 'honza/vim-snippets'
 "coc-diagnostic
 "coc-explorer
 "coc-clangd
@@ -629,7 +630,8 @@ require'bufferline'.setup{
 highlights = { fill = {bg = '#1f2428'}},
 options = { show_close_icon = false, show_buffer_close_icons = false,
 offsets = {{
-filetype   = "neo-tree",
+--filetype   = "neo-tree",
+filetype   = "coc-explorer",
 text       = " [     ]",
 text_align = "left"
 }}

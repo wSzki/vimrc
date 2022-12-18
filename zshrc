@@ -454,7 +454,7 @@ function back {
 # ......................................
 function gch {
 	if [[ $1 == "" ]]; then
-		fzf-git-checkout 2> /dev/null
+		fzf-git-checkout
 	else
 		git checkout $1
 	fi

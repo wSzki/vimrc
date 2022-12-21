@@ -175,7 +175,7 @@ function chromium   { crab ungoogled-chromium       "chromium $@"      }
 function wtf        { crab wtf                      "wtfutil $@"       }
 function gping      { crab gping                    "gping $@"         }
 function hn         { crab haxor-news               "hn $@"            }
-function dockerd    { crab docker                   "sudo dockerd $@"  }
+#function dockerd    { crab docker                   "sudo dockerd $@"  }
 function code       { crab vscodium                 "codium $@"        }
 function fltrdr     { crab fltrdr "fltrdr --config-base ~/.dot/config/fltrdr $@" }
 function mc         { clam matrix-commander --store ~/.config/matrix-commander/store $@ }
@@ -228,7 +228,7 @@ function nix-shell-init ()
  # ---------------------------------------------------------
  # ------------------------ DOCKER -------------------------
  # ---------------------------------------------------------
- function docker {
+ function dock {
 	 if [[ "$1" == "reset" ]]; then
 		 crab docker "echo '# DOCKER FACTORY RESET #'
 		 docker kill      $(docker ps -q)

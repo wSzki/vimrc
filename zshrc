@@ -583,6 +583,3 @@ export CPATH=$CPATH:/home/wsz/irc/includes/
 export CPATH=$CPATH:/home/wsz/irc/includes/numericReplies
 
 
-
-
-

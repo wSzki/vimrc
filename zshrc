@@ -262,6 +262,7 @@ FILE="/etc/passwd"
 alias yay="pikaur"    && alias paru="pikaur"
 alias del="trash-put" && alias dells="trash-list" && alias restore="trash-restore"
 alias sl="ls"         && alias ka="k -Ah"         && alias kk="k -Ah" && alias ls="k -h" && alias l="k -h" && alias lsa="k -hA --sort WORD"
+alias ableton="wine .wine64.ableton/drive_c/ProgramData/Ableton/Live\ 11\ Trial/Program/Ableton\ Live\ 11\ Trial.exe"
 
 alias j="z"
 alias t="$(which tldr)"
